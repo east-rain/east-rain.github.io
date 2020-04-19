@@ -1,0 +1,155 @@
+<!DOCTYPE html> <html lang="en-US"> <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=Edge"> <title>텐서플로우 허브 전이학습 - 차곡차곡 쌓자</title> <link rel="shortcut icon" href="http://localhost:4000/favicon.ico" type="image/x-icon"> <link rel="stylesheet" href="http://localhost:4000/assets/css/just-the-docs.css"> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163902491-1"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', "UA-163902491-1"); </script> <script type="text/javascript" src="http://localhost:4000/assets/js/vendor/lunr.min.js" charset="utf-8"></script> <script type="text/javascript" src="http://localhost:4000/assets/js/just-the-docs.js" charset="utf-8"></script> <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Begin Jekyll SEO tag v2.6.1 --> <title>텐서플로우 허브 전이학습 | 차곡차곡 쌓자</title> <meta name="generator" content="Jekyll v3.8.6" /> <meta property="og:title" content="텐서플로우 허브 전이학습" /> <meta property="og:locale" content="en_US" /> <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." /> <meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." /> <link rel="canonical" href="http://localhost:4000/docs/Deep%20Learning/%C5%D9%BC%AD%C7%C3%B7%CE%BF%EC%20%C6%A9%C5%E4%B8%AE%BE%F3/image_transfer_learning_TFHub.html" /> <meta property="og:url" content="http://localhost:4000/docs/Deep%20Learning/%C5%D9%BC%AD%C7%C3%B7%CE%BF%EC%20%C6%A9%C5%E4%B8%AE%BE%F3/image_transfer_learning_TFHub.html" /> <meta property="og:site_name" content="차곡차곡 쌓자" /> <script type="application/ld+json"> {"headline":"텐서플로우 허브 전이학습","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","url":"http://localhost:4000/docs/Deep%20Learning/%C5%D9%BC%AD%C7%C3%B7%CE%BF%EC%20%C6%A9%C5%E4%B8%AE%BE%F3/image_transfer_learning_TFHub.html","@type":"WebPage","@context":"https://schema.org"}</script> <!-- End Jekyll SEO tag --> </head> <body> <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"> <symbol id="link" viewBox="0 0 16 16"> <title>Link</title> <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path> </symbol> </svg> <div class="page-wrap"> <div class="side-bar"> <div class="site-header"> <a href="http://localhost:4000" class="site-title lh-tight"> 차곡차곡 쌓자 </a> <button class="menu-button fs-3 js-main-nav-trigger" data-text-toggle="Hide" type="button">Menu</button> </div> <div class="navigation main-nav js-main-nav"> <nav role="navigation" aria-label="Main navigation"> <ul class="navigation-list"><li class="navigation-list-item"><a href="http://localhost:4000/about/" class="navigation-list-link">About</a></li><li class="navigation-list-item"><a href="http://localhost:4000/404.html" class="navigation-list-link"></a></li><li class="navigation-list-item active"><a href="http://localhost:4000/docs/Deep%20Learning/" class="navigation-list-link">Deep Learning</a><ul class="navigation-list-child-list "><li class="navigation-list-item active"><a href="http://localhost:4000/docs/Deep%20Learning/%C5%D9%BC%AD%C7%C3%B7%CE%BF%EC%20%C6%A9%C5%E4%B8%AE%BE%F3/" class="navigation-list-link">텐서플로우 튜토리얼</a><ul class="navigation-list-child-list"><li class="navigation-list-item "> <a href="http://localhost:4000/docs/Deep%20Learning/%C5%D9%BC%AD%C7%C3%B7%CE%BF%EC%20%C6%A9%C5%E4%B8%AE%BE%F3/image_classification.html" class="navigation-list-link">텐서플로우 이미지 분류하기</a> </li><li class="navigation-list-item active"> <a href="http://localhost:4000/docs/Deep%20Learning/%C5%D9%BC%AD%C7%C3%B7%CE%BF%EC%20%C6%A9%C5%E4%B8%AE%BE%F3/image_transfer_learning_TFHub.html" class="navigation-list-link active">텐서플로우 허브 전이학습</a> </li><li class="navigation-list-item "> <a href="http://localhost:4000/docs/Deep%20Learning/%C5%D9%BC%AD%C7%C3%B7%CE%BF%EC%20%C6%A9%C5%E4%B8%AE%BE%F3/image_transfer_learning_preTrained.html" class="navigation-list-link">텐서플로우 전이학습</a> </li></ul></li><li class="navigation-list-item "><a href="http://localhost:4000/docs/Deep%20Learning/%B5%F6%B7%AF%B4%D7%20%B1%E2%C3%CA/" class="navigation-list-link">딥러닝 기초</a><ul class="navigation-list-child-list"><li class="navigation-list-item "> <a href="http://localhost:4000/docs/Deep%20Learning/%B5%F6%B7%AF%B4%D7%20%B1%E2%C3%CA/image_classification.html" class="navigation-list-link">테스트페이지요</a> </li></ul></li></ul></li><li class="navigation-list-item"><a href="http://localhost:4000/" class="navigation-list-link">Home</a></li><li class="navigation-list-item"><a href="http://localhost:4000/docs/Programming/" class="navigation-list-link">Programming</a><ul class="navigation-list-child-list "></ul></li></ul> </nav> </div> <footer class="site-footer"> <p class="text-small text-grey-dk-000 mb-4">This site uses <a href="https://github.com/pmarsceill/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.</p> </footer> </div> <div class="main-content-wrap js-main-content" tabindex="0"> <div class="main-content"> <div class="page-header js-page-header"> <div class="search"> <div class="search-input-wrap"> <input type="text" class="js-search-input search-input" tabindex="0" placeholder="Search" aria-label="Search" autocomplete="off"> <svg width="14" height="14" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" class="search-icon"><title>Search</title><g fill-rule="nonzero"><path d="M17.332 20.735c-5.537 0-10-4.6-10-10.247 0-5.646 4.463-10.247 10-10.247 5.536 0 10 4.601 10 10.247s-4.464 10.247-10 10.247zm0-4c3.3 0 6-2.783 6-6.247 0-3.463-2.7-6.247-6-6.247s-6 2.784-6 6.247c0 3.464 2.7 6.247 6 6.247z"/><path d="M11.672 13.791L.192 25.271 3.02 28.1 14.5 16.62z"/></g></svg> </div> <div class="js-search-results search-results-wrap"></div> </div> </div> <div class="page"> <nav class="breadcrumb-nav"> <ol class="breadcrumb-nav-list"> <li class="breadcrumb-nav-list-item"><a href="http://localhost:4000/docs/Deep%20Learning/">Deep Learning</a></li> <li class="breadcrumb-nav-list-item"><a href="http://localhost:4000/docs/Deep%20Learning/%C5%D9%BC%AD%C7%C3%B7%CE%BF%EC%20%C6%A9%C5%E4%B8%AE%BE%F3/">텐서플로우 튜토리얼</a></li> <li class="breadcrumb-nav-list-item"><span>텐서플로우 허브 전이학습</span></li> </ol> </nav> <div id="main-content" class="page-content" role="main"> <h1 id="텐서플로-허브와-전이학습transfer-learning"> <a href="#텐서플로-허브와-전이학습transfer-learning" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> 텐서플로 허브와 전이학습(transfer learning) </h1> <p>텐서플로 허브는 미리 학습된 모델들을 공유하는 곳이다. <a href="https://tfhub.dev/">텐서플로우 모듈 허브</a>를 보면 미리 학습된 모델들을 찾을 수 있다. 이 튜토리얼은 다음과 같은 과정들을 보여줄 것이다.</p> <ol> <li>tf.keras로 텐서플로 허브를 사용하는 방법.</li> <li>텐서플로 허브를 사용하여 이미지 분류를 하는 방법.</li> <li>간단한 전이학습을 하는 방법.</li> </ol> <h2 id="셋업"> <a href="#셋업" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> 셋업 </h2> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from __future__ import absolute_import, division, print_function, unicode_literals
+
+import matplotlib.pylab as plt
+
+import tensorflow as tf
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!pip install -q -U tf-hub-nightly
+import tensorflow_hub as hub
+
+from tensorflow.keras import layers
+</code></pre></div></div> <h2 id="imagenet-분류기classifier"> <a href="#imagenet-분류기classifier" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> ImageNet 분류기(classifier) </h2> <h3 id="분류기-다운로드"> <a href="#분류기-다운로드" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> 분류기 다운로드 </h3> <p><em>hub.module</em>을 사용하여 mobilenet을 불러오고, <em>tf.keras.layers.Lambda</em>로 감싸서 keras 레이어로 만든다. tfhub.dev에서 구한 <a href="https://tfhub.dev/s?q=tf2&amp;module-type=image-classification">어떠한 텐서플로우2의 비교가능한 이미지 분류기 URL</a>도 여기서 다 작동을 한다.</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>classifier_url ="https://tfhub.dev/google/tf2-preview/mobilenet_v2/classification/2" #@param {type:"string"}
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IMAGE_SHAPE = (224, 224)
+
+classifier = tf.keras.Sequential([
+    hub.KerasLayer(classifier_url, input_shape=IMAGE_SHAPE+(3,))
+])
+</code></pre></div></div> <h3 id="하나의-이미지에-대해-실행해보기"> <a href="#하나의-이미지에-대해-실행해보기" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> 하나의 이미지에 대해 실행해보기 </h3> <p>이미지를 하나 받아서 모델에 적용해보자</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import numpy as np
+import PIL.Image as Image
+
+grace_hopper = tf.keras.utils.get_file('image.jpg','https://storage.googleapis.com/download.tensorflow.org/example_images/grace_hopper.jpg')
+grace_hopper = Image.open(grace_hopper).resize(IMAGE_SHAPE)
+grace_hopper
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grace_hopper = np.array(grace_hopper)/255.0
+grace_hopper.shape
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; (224, 224, 3)
+</code></pre></div></div> <p>배치 차원을 더해주고, 모델에다 이미지를 넣는다</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result = classifier.predict(grace_hopper[np.newaxis, ...])
+result.shape
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; (1, 1001)
+</code></pre></div></div> <p>결과는 logit의 1001 요소 벡터 값, 그리고 이미지의 각 클래스에 대한 확률 값이다. 따라서 가장 높은 확률의 id값은 argmax로 구할 수 있다.</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>predicted_class = np.argmax(result[0], axis=-1)
+predicted_class
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; 653
+</code></pre></div></div> <h3 id="예측-해독하기"> <a href="#예측-해독하기" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> 예측 해독하기 </h3> <p>우리는 class ID값을 예측하고, <strong>ImageNet</strong> 라벨을 불러오고, 예측을 해독할 것이다.</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>labels_path = tf.keras.utils.get_file('ImageNetLabels.txt','https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt')
+imagenet_labels = np.array(open(labels_path).read().splitlines())
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plt.imshow(grace_hopper)
+plt.axis('off')
+predicted_class_name = imagenet_labels[predicted_class]
+_ = plt.title("Prediction: " + predicted_class_name.title())
+</code></pre></div></div> <h2 id="단순한-전이학습transfer-learning"> <a href="#단순한-전이학습transfer-learning" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> 단순한 전이학습(transfer learning) </h2> <p>TF Hub를 사용한다면 우리의 데이터셋의 클래스는 구분하기 위한 모델의 탑 레이어를 재교육하기 쉽다.</p> <h3 id="dataset"> <a href="#dataset" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> Dataset </h3> <p>이 예제에서 너는 tensorFlow flowers dataset을 이용할 것이다.</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data_root = tf.keras.utils.get_file(
+  'flower_photos','https://storage.googleapis.com/download.tensorflow.org/example_images/flower_photos.tgz',
+   untar=True)
+</code></pre></div></div> <p>우리 모델에 이 데이터를 불러오는 가장 간단한 방법은 **tf.keras.preprocessing.image.ImageDataGenerator를 사용하는 것이다.</p> <p>모든 텐서플로우 허브의 이미지 모듈들은 [0, 1]사이의 실수 값을 사용한다. <strong>ImageDataGenerator</strong>의 <em>rescale</em> 파라메터를 사용하여 변환해라</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>image_generator = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1/255)
+image_data = image_generator.flow_from_directory(str(data_root), target_size=IMAGE_SHAPE)
+</code></pre></div></div> <p>결과 객체는 image_batch, label_batch 쌍을 반환하는 iterator이다</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for image_batch, label_batch in image_data:
+  print("Image batch shape: ", image_batch.shape)
+  print("Label batch shape: ", label_batch.shape)
+  break
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; Image batch shape:  (32, 224, 224, 3)
+  Label batch shape:  (32, 5)
+</code></pre></div></div> <h3 id="이미지의-배치에-대한-분류기classifier-실행하기"> <a href="#이미지의-배치에-대한-분류기classifier-실행하기" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> 이미지의 배치에 대한 분류기(classifier) 실행하기 </h3> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result_batch = classifier.predict(image_batch)
+result_batch.shape
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; (32, 1001)
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>predicted_class_names = imagenet_labels[np.argmax(result_batch, axis=-1)]
+predicted_class_names
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; array(['daisy', 'mushroom', 'Bedlington terrier', 'daisy', 'daisy', 'bee',
+         'coral fungus', 'hair slide', 'picket fence', 'daisy', 'pot',
+         'mushroom', 'daisy', 'bee', 'rapeseed', 'daisy', 'daisy',
+         'water buffalo', 'spider web', 'cardoon', 'daisy', 'daisy', 'bee',
+         'daisy', 'vase', 'daisy', 'barn spider', 'slug', 'coral fungus',
+         'sea urchin', 'pot', 'coral fungus'], dtype='&lt;U30')
+</code></pre></div></div> <p>이미지와 함께 결과를 확인해보자</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plt.figure(figsize=(10,9))
+plt.subplots_adjust(hspace=0.5)
+for n in range(30):
+  plt.subplot(6,5,n+1)
+  plt.imshow(image_batch[n])
+  plt.title(predicted_class_names[n])
+  plt.axis('off')
+_ = plt.suptitle("ImageNet predictions")
+</code></pre></div></div> <p><img src="https://www.tensorflow.org/tutorials/images/transfer_learning_with_hub_files/output_IXTB22SpxDLP_0.png" />&lt;/img&gt;<br /></p> <p>결과는 완벽하지 않지만 모델이 데이지를 제외한 클래스들에 대해 학습된게 아니라는 점을 고려해야한다.</p> <h3 id="헤드리스모델-다운로드"> <a href="#헤드리스모델-다운로드" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> 헤드리스모델 다운로드 </h3> <p>텐서플로우 허브는 또한 top classification layer를 제외한 모델을 배포한다. 이것은 전이 학습에 매우 쉽게 사용될 수 있다.</p> <p>tfhub.dev에서 구한 <a href="https://tfhub.dev/s?module-type=image-feature-vector&amp;q=tf2">어떠한 텐서플로우2의 비교가능한 이미지 특징 벡터 URL</a>도 여기서 다 작동을 한다.</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>feature_extractor_url = "https://tfhub.dev/google/tf2-preview/mobilenet_v2/feature_vector/2" #@param {type:"string"}
+</code></pre></div></div> <p>특징 추출기를 만든다</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>feature_extractor_layer = hub.KerasLayer(feature_extractor_url,
+                                         input_shape=(224,224,3))
+</code></pre></div></div> <p>각 이미지에 대해 1280 길이의 벡터를 반환한다</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>feature_batch = feature_extractor_layer(image_batch)
+print(feature_batch.shape)
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; (32, 1280)
+</code></pre></div></div> <p>특징 추출 레이어(feature extractor layer)의 변수들을 고정한다. 따라서 모델에서 오직 새로운 classifier layer를 훈련하고 추가할 뿐이다.</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>feature_extractor_layer.trainable = False
+</code></pre></div></div> <h3 id="classification-haed-붙이기"> <a href="#classification-haed-붙이기" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> Classification haed 붙이기 </h3> <p>hub layer를 <strong>tf.keras.Sequential</strong> 모델로 감싸고 새로운 classification layer를 추가해라</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">model</span> <span class="p">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">Sequential</span><span class="p">([</span>
+  <span class="n">feature_extractor_layer</span><span class="p">,</span>
+  <span class="n">layers</span><span class="p">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">image_data</span><span class="p">.</span><span class="n">num_classes</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="k">model</span><span class="p">.</span><span class="n">summary</span><span class="p">()</span>
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Model: "sequential_1"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+keras_layer_1 (KerasLayer)   (None, 1280)              2257984   
+_________________________________________________________________
+dense (Dense)                (None, 5)                 6405      
+=================================================================
+Total params: 2,264,389
+Trainable params: 6,405
+Non-trainable params: 2,257,984
+_________________________________________________________________
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>predictions = model(image_batch)
+predictions.shape
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; TensorShape([32, 5])
+</code></pre></div></div> <h3 id="모델-학습시키기"> <a href="#모델-학습시키기" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> 모델 학습시키기 </h3> <p>트레이닝 과정을 설정하고 컴파일한다</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>model.compile(
+  optimizer=tf.keras.optimizers.Adam(),
+  loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True),
+  metrics=['acc'])
+</code></pre></div></div> <p>이제 <strong>.fit</strong> 메서드를 사용해서 모델을 학습시킨다</p> <p>예제를 짧게 유지하기 위해 단지 2 에폭만 학습한다. 트레이닝 과정을 시각화하기위해 에폭의 평균 대신 각 배치 고유의 loss와 accuracy를 남기는 custom callback을 이용한다.</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class CollectBatchStats(tf.keras.callbacks.Callback):
+  def __init__(self):
+    self.batch_losses = []
+    self.batch_acc = []
+
+  def on_train_batch_end(self, batch, logs=None):
+    self.batch_losses.append(logs['loss'])
+    self.batch_acc.append(logs['acc'])
+    self.model.reset_metrics()
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>steps_per_epoch = np.ceil(image_data.samples/image_data.batch_size)
+
+batch_stats_callback = CollectBatchStats()
+
+history = model.fit_generator(image_data, epochs=2,
+                              steps_per_epoch=steps_per_epoch,
+                              callbacks = [batch_stats_callback])
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; Epoch 1/2
+  115/115 [==============================] - 10s 91ms/step - loss: 0.3135 - acc: 0.9375
+  Epoch 2/2
+  115/115 [==============================] - 10s 89ms/step - loss: 0.2287 - acc: 0.9062
+</code></pre></div></div> <p>적은 학습만으로도 잘 동작한다는걸 확인할 수 있습니다.</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plt.figure()
+plt.ylabel("Loss")
+plt.xlabel("Training Steps")
+plt.ylim([0,2])
+plt.plot(batch_stats_callback.batch_losses)
+</code></pre></div></div> <p><img src="https://www.tensorflow.org/tutorials/images/transfer_learning_with_hub_files/output_3uvX11avTiDg_1.png" />&lt;/img&gt;<br /></p> <h3 id="예측prediction-확인하기"> <a href="#예측prediction-확인하기" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> 예측(prediction) 확인하기 </h3> <p>그림을 다시 그리기 위해 클래스 이름의 정렬된 순서를 가져온다</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class_names = sorted(image_data.class_indices.items(), key=lambda pair:pair[1])
+class_names = np.array([key.title() for key, value in class_names])
+class_names
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; array(['Daisy', 'Dandelion', 'Roses', 'Sunflowers', 'Tulips'],
+      dtype='&lt;U10')
+</code></pre></div></div> <p>모델에 이미지 배치를 돌리고 클래스 이름이 위치하도록 변환한다</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>predicted_batch = model.predict(image_batch)
+predicted_id = np.argmax(predicted_batch, axis=-1)
+predicted_label_batch = class_names[predicted_id]
+</code></pre></div></div> <p>결과를 그린다</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>label_id = np.argmax(label_batch, axis=-1)
+
+plt.figure(figsize=(10,9))
+plt.subplots_adjust(hspace=0.5)
+for n in range(30):
+  plt.subplot(6,5,n+1)
+  plt.imshow(image_batch[n])
+  color = "green" if predicted_id[n] == label_id[n] else "red"
+  plt.title(predicted_label_batch[n].title(), color=color)
+  plt.axis('off')
+_ = plt.suptitle("Model predictions (green: correct, red: incorrect)")
+</code></pre></div></div> <p><img src="https://www.tensorflow.org/tutorials/images/transfer_learning_with_hub_files/output_wC_AYRJU9NQe_0.png" />&lt;/img&gt;<br /></p> <h2 id="export-your-model"> <a href="#export-your-model" class="anchor-heading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#link"></use></svg></a> Export your model </h2> <p>훈련시킨 모델을 저장하고 내보낸다</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import time
+t = time.time()
+
+export_path = "/home/testopia-01/workspace/saved_models/{}".format(int(t))
+model.save(export_path, save_format='tf')
+</code></pre></div></div> <p>이제 우리는 모델을 불러오고 같은 결과를 기대할 수 있다.</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>reloaded = tf.keras.models.load_model(export_path)
+
+result_batch = model.predict(image_batch)
+reloaded_result_batch = reloaded.predict(image_batch)
+
+abs(reloaded_result_batch - result_batch).max()
+</code></pre></div></div> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; 0.0
+</code></pre></div></div> </div> </div> </div> </div> </body> </html>
