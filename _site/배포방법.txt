@@ -1,9 +1,8 @@
 1. post 작성
 2. Jekyll 블로그 폴더에서
-3. run.bat 실행
-4. jekyll 종료
-5. git add .
-6. git commit -m "message"
-7. publish.bat
+3. build.bat 실행
+4. git add .
+5. git commit -m "message"
+6. publish.bat
 
 출처 : https://rainsound-k.github.io/jekyll-blog/2018/05/02/apply-custom-plugin.html
