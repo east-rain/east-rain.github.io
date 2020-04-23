@@ -3,7 +3,7 @@ layout: null
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    {% assign feed_path = "/feed.xml" %} <!-- 피드경로 명시 -->
+    {% assign feed_path = "/feed.xml" %} <!-- 피드경로 명시하자-->
     <channel>
         <title> {{ site.title | xml_escape }}  </title>
         <description>{{ site.description | xml_escape }}</description>
@@ -12,7 +12,7 @@ layout: null
         <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
         <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
         <generator>Jekyll v{{ jekyll.version }}</generator>
-        {% for doc in site.docs %}
+        {% for doc in site.html_pages %}
         <item>
             <title>{{ doc.title | xml_escape }}</title>
             <description>{{ doc.content | xml_escape }}</description>
