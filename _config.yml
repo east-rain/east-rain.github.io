@@ -21,9 +21,7 @@
 title: 차곡차곡 쌓자
 email: kdwooa@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  차곡차곡 쌓아가는 기술블로그입니다. 되도록 정확한 자료만을 정리하려고 노력합니다.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://east-rain.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: east-rain

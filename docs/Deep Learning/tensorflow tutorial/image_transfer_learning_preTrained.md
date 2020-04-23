@@ -3,7 +3,7 @@ layout: default
 title: 텐서플로우 전이학습
 parent: 텐서플로우 튜토리얼
 grand_parent: Deep Learning
-nav_order: 3
+nav_order: 102
 ---
 
 # 미리 학습된 ConvNet으로 부터 전이 학습
@@ -89,9 +89,9 @@ for image, label in raw_train.take(2):
   plt.title(get_label_name(label))
 ```
 
-<img src="https://www.tensorflow.org/tutorials/images/transfer_learning_files/output_K5BeQyKThC_Y_0.png"></img><br/>
+<img src="https://www.tensorflow.org/tutorials/images/transfer_learning_files/output_K5BeQyKThC_Y_0.png"/><br/>
 
-<img src="https://www.tensorflow.org/tutorials/images/transfer_learning_files/output_K5BeQyKThC_Y_1.png"></img><br/>
+<img src="https://www.tensorflow.org/tutorials/images/transfer_learning_files/output_K5BeQyKThC_Y_1.png"/><br/>
 
 ### 데이터 구성 방식
 데이터를 구성하기 위해 **tf.image** 모듈을 사용한다.
@@ -138,10 +138,10 @@ image_batch.shape
 먼저, 특징 추출을 위해 사용할 MobileNet V2의 레이어를 선택해야 한다. 대부분의 머신러닝 모델 다이어그램은 bottom에서 top으로 가기에 마지막 classification 레이어(top)은 유용하지 않다. 대신 너는 일반적인 관례에 따라 평탄화 작업(flatten operation) 이전의 마지막 레이어를 사용할 수 있다. 이 레이어는 "bottleneck layer"라고 불리운다. bottleneck 레이어는 final/top 레이어에 비해서 더 일반적인 특징들을 가지고 있고 분류할 수 있다. 
 
 ### 일반적인 Convolution Network 구성도
-<img src="https://cdn-images-1.medium.com/fit/t/1600/480/1*vkQ0hXDaQv57sALXAJquxA.jpeg"></img><br/>
+<img src="https://cdn-images-1.medium.com/fit/t/1600/480/1*vkQ0hXDaQv57sALXAJquxA.jpeg"/><br/>
 
 ### MobileNet V2 구성도
-<img src="https://1.bp.blogspot.com/-M8UvZJWNW4E/WsKk-tbzp8I/AAAAAAAAChw/OqxBVPbDygMIQWGug4ZnHNDvuyK5FBMcQCLcBGAs/s1600/image5.png"></img><br/>
+<img src="https://1.bp.blogspot.com/-M8UvZJWNW4E/WsKk-tbzp8I/AAAAAAAAChw/OqxBVPbDygMIQWGug4ZnHNDvuyK5FBMcQCLcBGAs/s1600/image5.png"/><br/>
 
 먼저, ImageNet 데이터 셋으로 부터 학습 된 가중치를 가진 MobileNet V2 모델을 인스턴스화 한다. **include_top=False** 옵션값을 줌으로써, 너는 top에 classification 레이어를 포함하지 않는 특징 추출에 가장 최적화 된 네트워크를 불러올 것이다.
 

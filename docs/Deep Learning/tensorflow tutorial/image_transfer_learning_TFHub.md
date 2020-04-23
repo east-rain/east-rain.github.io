@@ -3,7 +3,7 @@ layout: default
 title: 텐서플로우 허브 전이학습
 parent: 텐서플로우 튜토리얼
 grand_parent: Deep Learning
-nav_order: 2
+nav_order: 101
 ---
 
 # 텐서플로 허브와 전이학습(transfer learning)
@@ -156,7 +156,7 @@ for n in range(30):
 _ = plt.suptitle("ImageNet predictions")
 ```
 
-<img src="https://www.tensorflow.org/tutorials/images/transfer_learning_with_hub_files/output_IXTB22SpxDLP_0.png"></img><br/>
+<img src="https://www.tensorflow.org/tutorials/images/transfer_learning_with_hub_files/output_IXTB22SpxDLP_0.png"/><br/>
 
 결과는 완벽하지 않지만 모델이 데이지를 제외한 클래스들에 대해 학습된게 아니라는 점을 고려해야한다.
 
@@ -263,7 +263,7 @@ plt.xlabel("Training Steps")
 plt.ylim([0,2])
 plt.plot(batch_stats_callback.batch_losses)
 ```
-<img src="https://www.tensorflow.org/tutorials/images/transfer_learning_with_hub_files/output_3uvX11avTiDg_1.png"></img><br/>
+<img src="https://www.tensorflow.org/tutorials/images/transfer_learning_with_hub_files/output_3uvX11avTiDg_1.png"/><br/>
 
 ### 예측(prediction) 확인하기
 그림을 다시 그리기 위해 클래스 이름의 정렬된 순서를 가져온다
@@ -297,7 +297,7 @@ for n in range(30):
   plt.axis('off')
 _ = plt.suptitle("Model predictions (green: correct, red: incorrect)")
 ```
-<img src="https://www.tensorflow.org/tutorials/images/transfer_learning_with_hub_files/output_wC_AYRJU9NQe_0.png"></img><br/>
+<img src="https://www.tensorflow.org/tutorials/images/transfer_learning_with_hub_files/output_wC_AYRJU9NQe_0.png"/><br/>
 
 ## Export your model
 훈련시킨 모델을 저장하고 내보낸다

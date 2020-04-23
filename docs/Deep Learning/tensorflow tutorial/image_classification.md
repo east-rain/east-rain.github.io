@@ -3,7 +3,7 @@ layout: default
 title: 텐서플로우 이미지 분류하기
 parent: 텐서플로우 튜토리얼
 grand_parent: Deep Learning
-nav_order: 1
+nav_order: 100
 ---
 
 # 이미지 분류
@@ -163,7 +163,7 @@ def plotImages(images_arr):
 ```
 plotImages(sample_training_images[:5])
 ```
-<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_d_VVg_gEVrWW_0.png"></img><br/>
+<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_d_VVg_gEVrWW_0.png"/><br/>
 
 ## 모델 생성하기
 모델에는 max pool layer를 가지고 있는 3개의 convolution block이 존재한다. 512개의 유닛이 존재하는 fully connected layer가 가장 상단에 존재하고 활성화 함수로 relu 함수가 사용된다.
@@ -260,7 +260,7 @@ plt.title('Training and Validation Loss')
 plt.show()
 ```
 
-<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_K6oA77ADVrWp_0.png"></img><br/>
+<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_K6oA77ADVrWp_0.png"/><br/>
 
 그림에서 알 수 있듯이 트레이닝 정확도와 밸리데이션 정확도는 큰 폭으로 증가하였습니다. 그리고 밸리데이션 정확도는 70% 정도를 달성하였습니다.
 무엇이 잘못되었는지 살펴보고 모델의 전반적인 성능을 향상 시켜보겠습니다.
@@ -300,7 +300,7 @@ augmented_images = [train_data_gen[0][0][0] for i in range(5)]
 # above to visualize the training images
 plotImages(augmented_images)
 ```
-<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_EvBZoQ9xVrW9_0.png"></img><br/>
+<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_EvBZoQ9xVrW9_0.png"/><br/>
 
 ### 이미지를 랜덤하게 회전하기
 회전이라 불리는 증강방법을 살펴보자 그리고 트레이닝 예제들을 45도 회전해보자 랜덤하게
@@ -319,7 +319,7 @@ augmented_images = [train_data_gen[0][0][0] for i in range(5)]
 ```
 plotImages(augmented_images)
 ```
-<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_wmBx8NhrVrXK_0.png"></img><br/>
+<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_wmBx8NhrVrXK_0.png"/><br/>
 
 ### 확대 증강 적용하기
 이미지를 랜덤하게 50프로 확대하는 증강법을 알아보자
@@ -338,7 +338,7 @@ augmented_images = [train_data_gen[0][0][0] for i in range(5)]
 ```
 plotImages(augmented_images)
 ```
-<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_-KQWw8IZVrXZ_0.png"></img><br/>
+<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_-KQWw8IZVrXZ_0.png"/><br/>
 
 ### 모두 적용해보기
 이전의 증강법을 모두 적용해보자. 이 방법으로 너는 rescale, 45도 회전, 가로 쉬프트, 세로 쉬프트, 수평 플립 그리고 확대 증강법을 사용할 수 있다.
@@ -364,7 +364,7 @@ train_data_gen = image_gen_train.flow_from_directory(batch_size=batch_size,
 augmented_images = [train_data_gen[0][0][0] for i in range(5)]
 plotImages(augmented_images)
 ```
-<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_z2m68eMhVrXm_0.png"></img><br/>
+<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_z2m68eMhVrXm_0.png"/><br/>
 
 ### 검증 데이터 생성기 만들기
 일반적으로 데이터 증강은 훈련 데이터에 대해서만 시행한다. 이번에는, 검증 데이터를 단순히 rescale하고 ImageDataGenerator를 사용하여 검증 데이터를 배치로 변환하는 것을 해보겠다.
@@ -485,4 +485,4 @@ plt.legend(loc='upper right')
 plt.title('Training and Validation Loss')
 plt.show()
 ```
-<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_7BTeMuNAVrYC_0.png"></img><br/>
+<img src="https://www.tensorflow.org/tutorials/images/classification_files/output_7BTeMuNAVrYC_0.png"/><br/>
