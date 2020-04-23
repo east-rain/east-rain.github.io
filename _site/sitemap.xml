@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
-        <loc>http://localhost:4000/jekyll/update/2020/04/19/welcome-to-jekyll.html</loc>
+        <loc>https://east-rain.github.io/jekyll/update/2020/04/19/welcome-to-jekyll.html</loc>
     </url>
     
 
@@ -10,7 +10,7 @@
     
     
     <url>
-        <loc>http://localhost:4000/404.html</loc>
+        <loc>https://east-rain.github.io/404.html</loc>
     </url>
     
     
@@ -20,7 +20,7 @@
     
     
     <url>
-        <loc>http://localhost:4000/docs/Deep%20Learning/tensorflow%20tutorial/image_classification.html</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/image_classification.html</loc>
     </url>
     
     
@@ -28,7 +28,7 @@
     
     
     <url>
-        <loc>http://localhost:4000/docs/Deep%20Learning/tensorflow%20tutorial/image_transfer_learning_TFHub.html</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/image_transfer_learning_TFHub.html</loc>
     </url>
     
     
@@ -36,7 +36,7 @@
     
     
     <url>
-        <loc>http://localhost:4000/docs/Deep%20Learning/tensorflow%20tutorial/image_transfer_learning_preTrained.html</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/image_transfer_learning_preTrained.html</loc>
     </url>
     
     
@@ -44,7 +44,7 @@
     
     
     <url>
-        <loc>http://localhost:4000/</loc>
+        <loc>https://east-rain.github.io/</loc>
     </url>
     
     
@@ -52,7 +52,7 @@
     
     
     <url>
-        <loc>http://localhost:4000/docs/Programming/</loc>
+        <loc>https://east-rain.github.io/docs/Programming/</loc>
     </url>
     
     
@@ -60,7 +60,7 @@
     
     
     <url>
-        <loc>http://localhost:4000/docs/Deep%20Learning/</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/</loc>
     </url>
     
     
@@ -68,7 +68,7 @@
     
     
     <url>
-        <loc>http://localhost:4000/docs/Deep%20Learning/tensorflow%20tutorial/</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/</loc>
     </url>
     
     
@@ -76,7 +76,7 @@
     
     
     <url>
-        <loc>http://localhost:4000/docs/Deep%20Learning/basic%20deeplearning/</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/</loc>
     </url>
     
     
@@ -84,7 +84,7 @@
     
     
     <url>
-        <loc>http://localhost:4000/docs/Deep%20Learning/tensorflow%20tutorial/install_tensorflow.html</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/install_tensorflow.html</loc>
     </url>
     
     
@@ -96,7 +96,7 @@
     
     
     <url>
-        <loc>http://localhost:4000/docs/Deep%20Learning/basic%20deeplearning/optimization.html</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/optimization.html</loc>
     </url>
     
     
