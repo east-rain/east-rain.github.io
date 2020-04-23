@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
-    <url>
-        <loc>https://east-rain.github.io/jekyll/update/2020/04/19/welcome-to-jekyll.html</loc>
-    </url>
-    
 
     
     
@@ -12,6 +8,8 @@
     <url>
         <loc>https://east-rain.github.io/404.html</loc>
     </url>
+    
+    
     
     
     
@@ -52,15 +50,7 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Programming/</loc>
-    </url>
-    
-    
-    
-    
-    
-    <url>
-        <loc>https://east-rain.github.io/docs/Deep%20Learning/</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/</loc>
     </url>
     
     
@@ -76,7 +66,15 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/</loc>
+        <loc>https://east-rain.github.io/docs/Programming/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/</loc>
     </url>
     
     
@@ -98,8 +96,6 @@
     <url>
         <loc>https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/optimization.html</loc>
     </url>
-    
-    
     
     
     

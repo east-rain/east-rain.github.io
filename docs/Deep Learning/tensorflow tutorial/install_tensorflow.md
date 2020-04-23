@@ -23,10 +23,10 @@ https://developer.nvidia.com/cudnn<br>
 여기서는 C:\tools/cuda 에 풀겠다.
 
 5. 환경변수 추가<br>
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\bin;<br>
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\extras\CUPTI\libx64;<br>
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include;<br>
-C:\tools\cuda\bin;<br>
+C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v10.2\\bin;<br>
+C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\v10.2\\extras\\CUPTI\\libx64;<br>
+C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v10.2\\include;<br>
+C:\\tools\\cuda\\bin;<br>
 해당 경로들을 환경변수에 추가한다.
 
 6. 텐서플로우 설치 - pip<br>
