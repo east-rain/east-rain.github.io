@@ -44,5 +44,6 @@ $ python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([100
 > 2020-04-21 20:36:09.675162: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX AVX2
   tf.Tensor(-342.69507, shape=(), dtype=float32)
 ```
+
 결과가 나오면 설치가 잘 된것이다.
 위에 I 메시지는 내 cpu는 더 많은 명령어를 지원하지만, pip로 받은 텐서플로우 빌드 버전에서는 해당 명령어를 사용하지 못한다는 의미이다. 만약 해당 메시지가 싫거나 좀 더 빠른 동작을 원한다면 텐서플로우 소스를 받아서 빌드하면 된다.
