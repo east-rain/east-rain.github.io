@@ -1,2 +1,1 @@
-bundle exec just-the-docs rake search:init
-bundle exec jekyll build
+bundle exec rake search:init && bundle exec jekyll build && echo '' > ./_site/.nojekyll
