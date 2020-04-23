@@ -4,6 +4,7 @@ title: 텐서플로우 전이학습
 parent: 텐서플로우 튜토리얼
 grand_parent: Deep Learning
 nav_order: 102
+date: 2020-04-23
 ---
 
 # 미리 학습된 ConvNet으로 부터 전이 학습

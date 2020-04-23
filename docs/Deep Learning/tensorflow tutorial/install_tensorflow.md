@@ -4,6 +4,7 @@ title: 텐서플로우 설치 - windows
 parent: 텐서플로우 튜토리얼
 grand_parent: Deep Learning
 nav_order: 99
+date: 2020-04-23
 ---
 
 # 텐서플로우 설치 - windows

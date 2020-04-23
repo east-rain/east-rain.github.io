@@ -4,6 +4,7 @@ title: 텐서플로우 허브 전이학습
 parent: 텐서플로우 튜토리얼
 grand_parent: Deep Learning
 nav_order: 101
+date: 2020-04-23
 ---
 
 # 텐서플로 허브와 전이학습(transfer learning)

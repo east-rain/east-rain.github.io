@@ -4,6 +4,7 @@ title: 최적화 함수들(optimization)
 parent: 딥러닝 기초
 grand_parent: Deep Learning
 nav_order: 100
+date: 2020-04-23
 ---
 
 # 최적화 함수들(optimization)

@@ -4,6 +4,7 @@ title: 텐서플로우 이미지 분류하기
 parent: 텐서플로우 튜토리얼
 grand_parent: Deep Learning
 nav_order: 100
+date: 2020-04-23
 ---
 
 # 이미지 분류

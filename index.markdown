@@ -4,6 +4,7 @@ title: About
 nav_order: 0
 description: "eastRain's tech blog."
 permalink: /
+date: 2020-04-23
 ---
 
 # 차곡차곡 쌓아가는 기술블로그입니다
