@@ -50,7 +50,15 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/posenet/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/</loc>
     </url>
     
     
@@ -74,7 +82,15 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Deep%20Learning/</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/</loc>
     </url>
     
     
@@ -83,6 +99,22 @@
     
     <url>
         <loc>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/install_tensorflow.html</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/posenet/introduction.html</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/introduction.html</loc>
     </url>
     
     
