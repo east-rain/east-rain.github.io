@@ -1,8 +1,8 @@
 ---
 layout: default
-title: PoseNet
+title: Yolo(darknet)
 parent: Deep Learning
-nav_order: 102
+nav_order: 103
 has_children: true
-date: 2020-05-06
+date: 2020-10-28
 ---

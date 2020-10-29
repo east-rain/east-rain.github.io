@@ -15,6 +15,22 @@
     
     
     
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/deepercut.html</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/environment.html</loc>
+    </url>
+    
+    
+    
+    
+    
     
     
     <url>
@@ -58,6 +74,14 @@
     
     
     <url>
+        <loc>https://east-rain.github.io/docs/Programming/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
         <loc>https://east-rain.github.io/docs/Deep%20Learning/</loc>
     </url>
     
@@ -66,15 +90,7 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/</loc>
-    </url>
-    
-    
-    
-    
-    
-    <url>
-        <loc>https://east-rain.github.io/docs/Programming/</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/Openpose/</loc>
     </url>
     
     
@@ -98,6 +114,30 @@
     
     
     <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/vector%20search/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
         <loc>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/install_tensorflow.html</loc>
     </url>
     
@@ -106,7 +146,7 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Deep%20Learning/posenet/introduction.html</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/introduction.html</loc>
     </url>
     
     
@@ -115,6 +155,14 @@
     
     <url>
         <loc>https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/introduction.html</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/posenet/introduction.html</loc>
     </url>
     
     
@@ -132,6 +180,14 @@
     
     
     
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/training.html</loc>
+    </url>
     
     
     
