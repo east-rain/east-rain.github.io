@@ -6,8 +6,8 @@
         <description>차곡차곡 쌓아가는 기술블로그입니다. 되도록 정확한 자료만을 정리하려고 노력합니다.</description>
         <link>https://east-rain.github.io/</link>
         <atom:link href="https://east-rain.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Wed, 27 May 2020 15:46:25 +0900</pubDate>
-        <lastBuildDate>Wed, 27 May 2020 15:46:25 +0900</lastBuildDate>
+        <pubDate>Thu, 29 Oct 2020 10:14:05 +0900</pubDate>
+        <lastBuildDate>Thu, 29 Oct 2020 10:14:05 +0900</lastBuildDate>
         <generator>Jekyll v3.8.6</generator>
         
         <item>
@@ -36,6 +36,136 @@
             <pubDate>Mon, 20 Apr 2020 00:00:00 +0900</pubDate>
             <link>https://east-rain.github.io/404.html</link>
             <guid isPermaLink="true">https://east-rain.github.io/404.html</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>deepercut(base model)</title>
+            <description>&lt;h1 id=&quot;deepercut-논문-요약&quot;&gt;Deepercut 논문 요약&lt;/h1&gt;
+&lt;p&gt;Bottom-up 방식의 pose estimation 모델이다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Bottom-up 
+ 영상에서 키포인트를 먼저 찾은다음, 그 키포인트들 간에 관계를 분석하여 자세를 추정한다.
+ 정확도는 Top-down 방식에 비교해서 떨어지지만 처음에 사람을 detect 하는 과정을 생략하기 때문에 빠르다는 장점이 있고,
+ Real-time에 사용하는 모델들에 주로 사용되는 방식이다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Top-down
+ 영상에서 먼저 사람의 위치를 detect하고, detect 되어진 bounding box 내부에서 자세를 추정하는 방식이다.
+ 정확도는 Bottom-up에 비해서 높지만, Multi-person일 경우에 detectin 된 사람마다 자세를 추정하기 때문에 느리다는 단점이 있다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;과거의 pose 추정 모델들이 사람의 구조적 특성에 집중하였다면, 요즘의 pose 추정 모델들은 강력해진 CNN 모델들을 이용하여
+신체 자체를 측정하는데 좀 더 초점을 둔다.&lt;/p&gt;
+
+&lt;p&gt;먼저 학습 된 CNN 모델을 통해서 신체부위의 클래스를 예측한 후에 SVM이 신체 포인트 쌍의 관계 점수를 매기는데 사용된다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SVM - 서포트 백터 머신
+서포트 벡터 머신(support vector machine, SVM)은 기계 학습의 분야 중 하나로 패턴 인식, 자료 분석을 위한 지도 학습 모델이며, 주로 분류와 회귀 분석을 위해 사용한다. 두 카테고리 중 어느 하나에 속한 데이터의 집합이 주어졌을 때, SVM 알고리즘은 주어진 데이터 집합을 바탕으로 하여 새로운 데이터가 어느 카테고리에 속할지 판단하는 비확률적 분류 모델을 만든다.
+&lt;img src=&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kernel_Machine.svg/1920px-Kernel_Machine.svg.png&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;DeeperCut을 이해하려면 먼저 DeepCut을 알아야 한다. DeepCut은 multi-persion pose estimation의 state-of-the-art이다.&lt;/p&gt;
+
+&lt;p&gt;집합 D = 신체 부위 후보군들(주어진 이미지에서 예측되는 신체 부위들)
+집합 C = 신체 부위 클래스들(머리, 어깨, 무릎 등의 신체 부위들)&lt;/p&gt;
+
+&lt;p&gt;집한 D는 일반적으로 body part detector에 의해 생성되며, 각각의 후보자 d ∈ D는 모든 body part class c ∈ C 에 대응하는 점수를 가지고 있다. 이 점수에 기반하여 DeepCut은 각각의 d가 c에 대해 가지는 점수 세트 αdc ∈ R를 만든다. 추가적으로 모든&lt;/p&gt;
+
+&lt;p&gt;최근 이미지넷으로 훈련시킨 Resnet이 인간의 판단 능력을 넘어섰다. 그러한 Resnet을 이용하였으며 152개의 layer를 쌓았다.&lt;/p&gt;
+</description>
+            <pubDate>Wed, 27 May 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/deepercut.html</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/deepercut.html</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>환경설정</title>
+            <description>&lt;h1 id=&quot;환경설정&quot;&gt;환경설정&lt;/h1&gt;
+&lt;p&gt;Ubuntu 16.04 환경에서 작업하였다.&lt;/p&gt;
+
+&lt;h3 id=&quot;requirements&quot;&gt;Requirements&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;CMake &amp;gt;= 3.12
+
+$ sudo apt install cmake
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;CUDA &amp;gt;= 10.0
+
+network 형태로 설치(이 형태로 하면 패치를 받을 필요가 없어서 편하다)
+$ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-ubuntu1604.pin
+$ sudo mv cuda-ubuntu1604.pin /etc/apt/preferences.d/cuda-repository-pin-600
+$ sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
+$ sudo add-apt-repository &quot;deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/ /&quot;
+$ sudo apt-get update
+$ sudo apt-get -y install cuda
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;OpenCV &amp;gt;= 2.4
+
+$ sudo apt-get install build-essential cmake pkg-config libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev libavcodec-dev libavformat-dev libswscale-dev libxvidcore-dev libx264-dev libxine2-dev libv4l-dev v4l-utils libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libqt4-dev mesa-utils libgl1-mesa-dri libqt4-opengl-dev libatlas-base-dev gfortran libeigen3-dev python2.7-dev python3-dev python-numpy python3-numpy
+임시 폴더 생성
+$ wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.2.0.zip
+$ unzip opencv.zip
+$ wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.2.0.zip
+$ unzip opencv_contrib.zip
+$ cd opencv-3.2.0
+$ mkdir build
+$ cd build
+$ make -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=OFF -D WITH_IPP=OFF -D WITH_1394=OFF -D BUILD_WITH_DEBUG_INFO=OFF -D BUILD_DOCS=OFF -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D ENABLE_NEON=ON -D WITH_QT=ON -D WITH_OPENGL=ON -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.2.0/modules -D WITH_V4L=ON -D WITH_FFMPEG=ON -D WITH_XINE=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D PYTHON_INCLUDE_DIR=/usr/include/python2.7 -D PYTHON_INCLUDE_DIR2=/usr/include/x86_64-linux-gnu/python2.7 -D PYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so ../
+$ make -j8 (cpu 코어 수에 따라서 숫자 조절)
+$ sudo make install
+설치확인
+$ pkg-config --modversion opencv
+$ pkg-config --libs --cflags opencv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;opencv.png&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cuDNN &amp;gt;= 7.0
+
+1. https://developer.nvidia.com/cudnn 이동
+2. Download cuDNN 클릭
+3. Login
+4. https://developer.nvidia.com/rdp/cudnn-archive 이동
+5. Download cuDNN v7.6.5 (November 18th, 2019), for CUDA 10.2 선택
+6. cuDNN Runtime Library for Ubuntu16.04 (Deb) 다운로드
+7. sudo dpkg -i 다운받은deb파일
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;darknet-설치&quot;&gt;darknet 설치&lt;/h3&gt;
+&lt;p&gt;위의 requirements가 모두 설치되었다는 가정하에 진행한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;https://github.com/AlexeyAB/darknet.git 받고 해당 폴더 이동&lt;/li&gt;
+  &lt;li&gt;Makefile 열어서 수정(아래 그림 파일 참조)
+&lt;img src=&quot;makefile.png&quot; /&gt;
+본인의 경우에는 현재 PC의 상황에 맞게 다음과 같이 설정하였다.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GPU=1
+CUDNN=1
+CUDNN_HALF=0
+OPENCV=1
+AVX=0
+OPENMP=0
+LIBSO=1
+ZED_CAMERA=0
+ZED_CAMERA_v2_8=0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;$ make 명령어를 통해 컴파일&lt;/li&gt;
+  &lt;li&gt;컴파일 도중 NVCC 에러가 날 수도 있다. 이때는 다시 Makefile을 열어서 본인의 nvcc 경로를 변경해줘야한다.
+일반적으로 위에서 cuda를 제대로 설치했으면 /usr/local/cuda/bin/nvcc 일 것이다.&lt;/li&gt;
+  &lt;li&gt;./darknet detector test ./cfg/coco.data ./cfg/yolov4.cfg ./yolov4.weights 명령어를 통해 올바르게 컴파일이 되었는지 확인을 해본다. 보통 makefile이나 실행 도중 에러가 나면 에러메시지를 잘 확인해 보길 바란다. cuda version 문제 또는 cudnn version문제 또는 opencv 관련 문제일 것이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+            <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/environment.html</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/environment.html</guid>
             
             
         </item>
@@ -1583,6 +1713,16 @@ history_fine = model.fit(train_batches,
         </item>
         
         <item>
+            <title>Programming</title>
+            <description># Programming</description>
+            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Programming/</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Programming/</guid>
+            
+            
+        </item>
+        
+        <item>
             <title>Deep Learning</title>
             <description></description>
             <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
@@ -1593,21 +1733,255 @@ history_fine = model.fit(train_batches,
         </item>
         
         <item>
-            <title>텐서플로우 튜토리얼</title>
-            <description></description>
-            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
-            <link>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/</link>
-            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/</guid>
-            
-            
-        </item>
-        
-        <item>
-            <title>Programming</title>
-            <description># Programming</description>
-            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
-            <link>https://east-rain.github.io/docs/Programming/</link>
-            <guid isPermaLink="true">https://east-rain.github.io/docs/Programming/</guid>
+            <title>Openpose</title>
+            <description>https://github.com/ildoonet/tf-pose-estimation.git
+
+해당 repository를 통해 개의 신체 자세를 추정하는 모델을 개발하였다.
+
+https://arvrjourney.com/human-pose-estimation-using-openpose-with-tensorflow-part-2-e78ab9104fc8
+
+그리고 해당 블로그에서 openpose 구현에 대한 많은것을 배울 수 있었다.
+
+본래 Openpose는 human pose를 추정하는 알고리즘이다. CMU의 오리지날 논문 구현에서는 Caffe를 사용했지만, 해당 프로젝트에서는 텐서플로를 이용해 구현하였다.
+
+
+### Requirements
+* python3
+* tensorflow 1.4.1+
+* opencv3, protobuf, python3-tk
+* slidingwindow
+
+### Install
+1. 해당 repository를 받는다.
+2. pip install -r requirements.txt 를 통해 필요한 패키지를 설치한다
+3. tf_pose/pafprocess 로 이동한다
+4. swig -python -c++ pafprocess.i &amp;&amp; python3 setup.py build_ext --inplace 로 c++ 코드를 python으로 치환해 준다.
+
+
+해당 구현의 경우 인간 자세 Coco dataset의 keypoint 라벨링에 맞게 트레이닝을 하고 추론이 되도록 되어있다. 따라서 인간의 keypoint 개수와 keypoint pair를 강아지에 맞개 개수를 변경해줘야 한다. 또한 repository가 관리된지 조금 오래 지나서 commit이 이루어 지지 않고 다른 버전의 tensorflow와 cuda version에서 동작이 안되는 부분이 있어서 부분부분 수정이 필요하다.
+
+
+수정해야하는 부분을 지금부터 명시하겠다.
+
+
+coco dataset의 인간의 키포인트는 총 18개이다.(background까지 하면 19개).
+내가 정의해준 강아지의 신체포인트는 총 32개이다.(background까지 하면 33개)
+
+```
+# common.py
+
+LEye = 0
+REye = 1
+Nose = 2
+LMouth = 3
+RMouth = 4
+MouthRow = 5
+Tongue = 6
+LEarStart = 7
+LEarMiddle = 8
+LEarEnd = 9
+REarStart = 10
+REarMiddle = 11
+REarEnd = 12
+Withers = 13
+Prosternum = 14
+LElbow = 15
+LForearm = 16
+LForefoot = 17
+RElbow = 18
+RForearm = 19
+RForefoot = 20
+LStiffle = 21
+LHock = 22
+LHindfoot = 23
+RStiffle = 24
+RHock = 25
+RHindfoot = 26
+TailStart = 27
+TailStartMiddle = 28
+TailMiddle = 29
+TailMiddleEnd = 30
+TailEnd = 31
+Background = 32
+
+# 신체 포인트를 이어주는 pair는 다음과 같다. CocoPairRender는 모두 표시해주고 싶어서 원래 있던 [:-2]를 제외하였다.
+
+CocoPairs = [
+    (2, 0), (0, 7), (7, 8), (8, 9), (2, 1), (1, 10), (10, 11), (11, 12), (2, 5), (5, 3),
+    (5, 4), (5, 6), (2, 13), (2, 14), (13, 15), (14, 15), (15, 16), (16, 17), (13, 18), (14, 18),
+    (18, 19), (19, 20), (13, 27), (14, 27), (27, 21), (21, 22), (22, 23), (27, 24), (24, 25), (25, 26),
+    (27, 28), (28, 29), (29, 30), (30, 31)
+]   # = 34
+CocoPairsRender = CocoPairs
+
+CocoColors = [[255, 0, 0], [255, 85, 0], [255, 170, 0], [255, 255, 0], [255, 255, 0], [255, 255, 0], [255, 255, 0],
+              [170, 255, 0], [170, 255, 0], [170, 255, 0], [85, 255, 0], [85, 255, 0], [85, 255, 0],
+              [0, 255, 0], [0, 255, 85], [0, 255, 170], [0, 255, 170], [0, 255, 170],
+              [0, 255, 255], [0, 255, 255], [0, 255, 255], [0, 170, 255], [0, 170, 255], [0, 170, 255],
+              [0, 85, 255], [0, 85, 255], [0, 85, 255],
+              [0, 0, 255], [0, 0, 255], [0, 0, 255], [0, 0, 255], [0, 0, 255], [85, 0, 255], [170, 0, 255]]
+
+```
+```
+# estimator.py
+
+# 머리 박스 쳐주는 것을 강아지 신체포인트에 맞게 변경
+def get_face_box(self, img_w, img_h, mode=0):
+    _NOSE = CocoPart.Nose.value
+    _NECK = CocoPart.MouthRow.value
+    _REye = CocoPart.REye.value
+    _LEye = CocoPart.LEye.value
+    _REar = CocoPart.REarEnd.value
+    _LEar = CocoPart.LEarEnd.value
+
+# 부분부분 숫자가 18로 되어있는 것들을 32로 바꿔줘야 한다. 사람 신체포인트는 18개, 그리고 정의한 강아지 신체포인트는 32개이기 때문.
+for part_idx in range(32):
+
+# 그리고 heatMat과 pafMat 부분이 19로 되어있는데 해당 부분은 34로 변경해준다
+self.tensor_heatMat = self.tensor_output[:, :, :, :34]
+self.tensor_pafMat = self.tensor_output[:, :, :, 34:]
+self.upsample_size = tf.placeholder(dtype=tf.int32, shape=(2,), name='upsample_size')
+self.tensor_heatMat_up = tf.image.resize_area(self.tensor_output[:, :, :, :34], self.upsample_size,
+                                                      align_corners=False, name='upsample_heatmat')
+self.tensor_pafMat_up = tf.image.resize_area(self.tensor_output[:, :, :, 34:], self.upsample_size,
+                                                     align_corners=False, name='upsample_pafmat')
+if trt_bool is True:
+    smoother = Smoother({'data': self.tensor_heatMat_up}, 25, 3.0, 34)
+else:
+    smoother = Smoother({'data': self.tensor_heatMat_up}, 25, 3.0)
+```
+```
+# network_mobilenet_v2.py
+# 프로젝트 진행에서 backbone 모델은 가장 만만한 mobilenet_v2를 이용하였다. 해당 부분 또한 신체포인트 개수가 다르기에 노드의 개수를 변경해 줘야 한다.
+
+# 38 -&gt; 68으로
+# 19 -&gt; 34로
+```
+```
+# pose_augment.py
+트레이닝 시에 데이터 augmentation을 위해서 변경된 신체포인트를 명시해 주자. 일반적인 경우는 상관없지만 flip같은 경우에 신체포인트 좌우가 바뀌어야 한다
+
+# flip meta
+    flip_list = [CocoPart.REye, CocoPart.LEye, CocoPart.Nose, CocoPart.RMouth, CocoPart.LMouth, CocoPart.MouthRow, CocoPart.Tongue, CocoPart.REarStart,
+                 CocoPart.REarMiddle, CocoPart.REarEnd, CocoPart.LEarStart, CocoPart.LEarMiddle, CocoPart.LEarEnd, CocoPart.Withers,
+                 CocoPart.Prosternum, CocoPart.RElbow, CocoPart.RForearm, CocoPart.RForefoot, CocoPart.LElbow, CocoPart.LForearm, CocoPart.LForefoot,
+                 CocoPart.RStiffle, CocoPart.RHock, CocoPart.RHindfoot, CocoPart.LStiffle, CocoPart.LHock, CocoPart.LHindfoot, CocoPart.TailStart,
+                 CocoPart.TailStartMiddle, CocoPart.TailMiddle, CocoPart.TailMiddleEnd, CocoPart.TailEnd, CocoPart.Background]
+
+```
+```
+# pose_dataset.py
+__coco_parts = 34
+__coco_vecs = list(zip(
+        [3, 1, 8, 9,  3,  2, 11, 12, 3, 6, 6, 6,  3,  3, 14, 15, 16, 17, 14, 15, 19, 20, 14, 15, 28, 22, 23, 28, 25, 26, 28, 29, 30, 31],
+        [1, 8, 9, 10, 2, 11, 12, 13, 6, 4, 5, 7, 14, 15, 16, 16, 17, 18, 19, 19, 20, 21, 28, 28, 22, 23, 24, 25, 26, 27, 29, 30, 31, 32]
+    ))
+
+transform = list(zip(
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+        ))
+
+# 여기서 기본으로 제공되는 데이터셋이 아닌 커스텀 데이터셋 명시해줌
+if is_train:
+    whole_path = os.path.join(path, 'train.json')
+else:
+    whole_path = os.path.join(path, 'test.json')
+    self.img_path = (img_path if img_path is not None else '') + ('/train/' if is_train else '/test/')
+
+# tensorflow 버전에 따라서 수정해줘야 하는 경우도 있음
+ds = MultiThreadMapData(ds, num_thread=16, map_func=read_image_url, buffer_size=1000)
+```
+```
+# train.py
+
+# vectmap_node의 기존 38 -&gt; 68로, heatmap_node는 기존 19 -&gt; 34로
+vectmap_node = tf.placeholder(tf.float32, shape=(args.batchsize, output_h, output_w, 68), name='vectmap')
+heatmap_node = tf.placeholder(tf.float32, shape=(args.batchsize, output_h, output_w, 34), name='heatmap')
+
+그리고 트레이닝이 일정부분 지속 된 후 validation을 해주는 부분이 있다. 여기서 아마 계속 오류가 발생할 것이다. df_valid.reset_state() 시점에서 에러가 날것이다. 그냥 맘 편하게 세션이 시작하기 전에 validation 이미지들을 메모리에 올려놓는 것이 정신건강에 이롭다.
+
+# 해당 코드를 with tf.Session(config=config) as sess: 위로 올려놓자. 그러면 밑에서 validation_cache가 존재하기 때문에 다시 불러오려고 노력하지 않는다.
+for images_test, heatmaps, vectmaps in tqdm(df_valid.get_data()):
+        validation_cache.append((images_test, heatmaps, vectmaps))
+del df_valid
+df_valid = None
+
+pafMat, heatMat = outputMat[:, :, :, 34:], outputMat[:, :, :, :34]
+```
+
+거의 다 왔다. 그리고 openpose 논문을 보면 알겠지만 각 지점의 추정 히트맵 부분을 연결해주는 것이 필요하다. 해당 부분은 속도 때문인지 python으로 구현하지 않고 c++ 코드로 구현이 되어있다. 신체포인트와 페어의 개수가 다르므로 이 부분 또한 변경을 해줘야 한다.
+
+tf_pose/pafprocess (해당 부분을 수정 후에는 swig를 통해 build를 다시 해줘야 한다) 에 존재하는 파일들을 수정해주자
+```
+# pafprocess.cpp
+if (found == 1) {
+    if (subset[subset_idx1][part_id2] != conns[conn_id].cid2) {
+    subset[subset_idx1][part_id2] = conns[conn_id].cid2;
+    subset[subset_idx1][33] += 1;
+    subset[subset_idx1][32] += peak_infos_line[conns[conn_id].cid2].score + conns[conn_id].score;
+    }
+} else if (found == 2) {
+    int membership=0;
+    for (int subset_id = 0; subset_id &lt; 32; subset_id ++) {
+        if (subset[subset_idx1][subset_id] &gt; 0 &amp;&amp; subset[subset_idx2][subset_id] &gt; 0) {
+            membership = 2;
+        }
+    }
+
+    if (membership == 0) {
+        for (int subset_id = 0; subset_id &lt; 32; subset_id ++) subset[subset_idx1][subset_id] += (subset[subset_idx2][subset_id] + 1);
+
+            subset[subset_idx1][33] += subset[subset_idx2][33];
+            subset[subset_idx1][32] += subset[subset_idx2][32];
+            subset[subset_idx1][32] += conns[conn_id].score;
+            subset.erase(subset.begin() + subset_idx2);
+        } else {
+            subset[subset_idx1][part_id2] = conns[conn_id].cid2;
+            subset[subset_idx1][33] += 1;
+            subset[subset_idx1][32] += peak_infos_line[conns[conn_id].cid2].score + conns[conn_id].score;
+        }
+} else if (found == 0) {
+    vector&lt;float&gt; row(34);
+    for (int i = 0; i &lt; 34; i ++) row[i] = -1;
+    row[part_id1] = conns[conn_id].cid1;
+    row[part_id2] = conns[conn_id].cid2;
+    row[33] = 2;
+    row[32] = peak_infos_line[conns[conn_id].cid1].score + peak_infos_line[conns[conn_id].cid2].score + conns[conn_id].score;
+    subset.push_back(row);
+}
+
+
+float get_score(int human_id) {
+    return subset[human_id][32] / subset[human_id][33];
+}
+```
+```
+# pafprocess.h
+const float THRESH_HUMAN_SCORE = 0.1;
+const int NUM_PART = 32;
+
+const int STEP_PAF = 10;
+
+const int COCOPAIRS_SIZE = 34;
+const int COCOPAIRS_NET[COCOPAIRS_SIZE][2] = {
+    {0, 1}, {2, 3}, {4, 5}, {6, 7}, {8, 9}, {10, 11}, {12, 13}, {14, 15}, {16, 17}, {18, 19},
+    {20, 21}, {22, 23}, {24, 25}, {26, 27}, {28, 29}, {30, 31}, {32, 33}, {34, 35}, {36, 37}, {38, 39},
+    {40, 41}, {42, 43}, {44, 45}, {46, 47}, {48, 49}, {50, 51}, {52, 53}, {54, 55}, {56, 57}, {58, 59},
+    {60, 61}, {62, 63}, {64, 65}, {66, 67}
+};
+
+const int COCOPAIRS[COCOPAIRS_SIZE][2] = {
+    {2, 0}, {0, 7}, {7, 8}, {8, 9}, {2, 1}, {1, 10}, {10, 11}, {11, 12}, {2, 5}, {5, 3},
+    {5, 4}, {5, 6}, {2, 13}, {2, 14}, {13, 15}, {14, 15}, {15, 16}, {16, 17}, {13, 18}, {14, 18},
+    {18, 19}, {19, 20}, {13, 27}, {14, 27}, {27, 21}, {21, 22}, {22, 23}, {27, 24}, {24, 25}, {25, 26},
+    {27, 28}, {28, 29}, {29, 30}, {30, 31}
+};
+```
+</description>
+            <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/Openpose/</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/Openpose/</guid>
             
             
         </item>
@@ -1628,6 +2002,210 @@ history_fine = model.fit(train_batches,
             <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
             <link>https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/</link>
             <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>텐서플로우 튜토리얼</title>
+            <description></description>
+            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>Yolo(darknet)</title>
+            <description></description>
+            <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>이미지 유사도 검색</title>
+            <description>https://github.com/facebookresearch/faiss.git
+
+facebook에서 공개한 Faiss를 이용하여 이미지 유사도를 검색하였다. 
+
+### Faiss란?
+Faiss는 밀도가 높은 벡터의 효율적인 유사성 검색 및 클러스터링을위한 라이브러리입니다. 여기에는 RAM에 맞지 않을 수있는 최대 크기의 벡터 세트에서 검색하는 알고리즘이 포함되어 있습니다. 평가 및 매개 변수 조정을위한 지원 코드도 포함되어 있습니다. Python / numpy를 위한 완전한 래퍼와 함께 C ++로 작성되었습니다. 가장 유용한 알고리즘 중 일부는 GPU에서 구현됩니다. Facebook AI Research에서 개발했습니다.
+
+
+다양한 백터 유사도 검색 알고리즘들을 구현해놓고 쓰기 쉽게 말아 놓았다. 그 중에서 HNSW(Hierarchical Navigable Small World graphs)를 이용해서 이미지 유사도를 검색하였다.
+
+
+백터 그래프를 그리는 코드는 다음과 같다
+```
+import struct
+import glob
+import numpy as np
+import os
+import tensorflow as tf
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
+import tensorflow.keras.layers as layers
+from tensorflow.keras.models import Model
+
+def preprocess(img_path, input_shape):
+    img = tf.io.read_file(img_path)
+    img = tf.image.decode_jpeg(img, channels=input_shape[2])
+    img = tf.image.resize(img, input_shape[:2])
+    img = preprocess_input(img)
+    return img
+
+def main():
+    batch_size = 100
+    input_shape = (224, 224, 3)
+    base = tf.keras.applications.MobileNetV2(input_shape=input_shape,
+                                             include_top=False,
+                                             weights='imagenet')
+    base.trainable = False
+    model = Model(inputs=base.input, outputs=layers.GlobalAveragePooling2D()(base.output))
+
+
+    root_dir = &quot;이미지 존재하는 루트 디렉토리&quot;
+    images = []
+    for(dirpath, dirnames, filenames) in os.walk(root_dir):
+        for filename in filenames:
+            if &quot;.png&quot; in filename or &quot;.jpg&quot; in filename:
+                images.append(dirpath + &quot;/&quot; + filename)
+    fnames = images
+
+    list_ds = tf.data.Dataset.from_tensor_slices(fnames)
+    ds = list_ds.map(lambda x: preprocess(x, input_shape), num_parallel_calls=-1)
+    dataset = ds.batch(batch_size).prefetch(-1)
+
+    with open('fvecs.bin', 'wb') as f:
+        for batch in dataset:
+            fvecs = model.predict(batch)
+
+            fmt = f'{np.prod(fvecs.shape)}f'
+            f.write(struct.pack(fmt, *(fvecs.flatten())))
+
+    with open('fnames.txt', 'w') as f:
+        f.write('\n'.join(fnames))
+
+if __name__ == '__main__':
+    main()
+```
+
+해당 코드를 통해 백터 그래프를 그리면 다음과 같이 3개의 파일이 생성된다. fnames.txt, fvecs.bin, fvecs.bin.hnsw.index
+
+그리고 이제 이 파일들을 이용해서 유사도를 검색할 수 있다.
+
+```
+import os
+import time
+import math
+import random
+import numpy as np
+import json
+from sklearn.preprocessing import normalize
+import faiss
+import csv
+
+
+def dist2sim(d):
+    return 1 - d / 2
+    
+
+def get_index(index_type, dim):
+    if index_type == 'hnsw':
+        m = 48
+        index = faiss.IndexHNSWFlat(dim, m)
+        index.hnsw.efConstruction = 128
+        return index
+    elif index_type == 'l2':
+        return faiss.IndexFlatL2(dim)
+    raise
+
+
+def populate(index, fvecs, batch_size=1000):
+    nloop = math.ceil(fvecs.shape[0] / batch_size)
+    for n in range(nloop):
+        s = time.time()
+        index.add(normalize(fvecs[n * batch_size : min((n + 1) * batch_size, fvecs.shape[0])]))
+        print(n * batch_size, time.time() - s)
+
+    return index
+
+
+def find_file_name(idx):
+	if idx == -1:
+		return 'None'
+	with open('fnames.txt', 'r') as f:
+		names = f.readlines()
+	return names[idx].strip('\n').strip('\t')
+
+def main():
+    dim = 1280
+    fvec_file = 'fvecs.bin'
+    index_type = 'hnsw'
+    #index_type = 'l2'
+
+	# f-string 방식 (python3 이상에서 지원)
+    index_file = f'{fvec_file}.{index_type}.index'
+
+    fvecs = np.memmap(fvec_file, dtype='float32', mode='r').view('float32').reshape(-1, dim)
+
+    if os.path.exists(index_file):
+        index = faiss.read_index(index_file)
+        if index_type == 'hnsw':
+            index.hnsw.efSearch = 256
+    else:
+        index = get_index(index_type, dim)
+        index = populate(index, fvecs)
+        faiss.write_index(index, index_file)
+    print(index.ntotal)
+
+    random.seed(2020)
+    
+	# random하게 쿼리 인덱스를 생성한다
+    # 0부터 데이터 갯수 사이의 인덱스
+    q_idx = [random.randint(0, fvecs.shape[0]) for _ in range(100)]
+    q_idx = np.arange(0, 1)
+    k = 10
+    s = time.time()
+    
+    total = 0
+    csv_file = open('result.csv', 'w', encoding='utf-8-sig', newline='')
+    wr = csv.writer(csv_file)
+    for source in range(index.ntotal):
+    	q_idx = [source]
+    	dists, idxs = index.search(normalize(fvecs[q_idx]), k)
+    	sim_files = []
+    	sim_scores = []
+    	for i, idx in enumerate(idxs[0]):
+    		if dists[0][i] &lt;= 0.3 and idx != source:
+    			sim_scores.append(dists[0][i])
+    			sim_files.append(find_file_name(idx))
+    			total = total + 1
+
+    	if len(sim_files) &gt; 0:
+    		wr.writerow([find_file_name(source)])
+    		for i, file in enumerate(sim_files):
+    			wr.writerow([sim_scores[i], file])
+
+    print(&quot;length = &quot; + str(len(sim_files)))
+    csv_file.close()
+    print(total)
+  
+if __name__ == '__main__':
+    main()
+```
+
+해당 코드를 돌리면 fnames.txt에 존재하는 모든 파일들을 읽어와서 백터 유사도 검색을 해서 이미지의 유사도를 result.csv파일에 모두 뛀궈준다.
+
+그리고 그래프를 그리고 찾는 두개의 코드를 이용해 실시간으로 이미지의 유사도를 검색할 수 있는 시스템을 구성할 수도 있다.
+
+&lt;img src=&quot;similary.png&quot;/&gt;</description>
+            <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/vector%20search/</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/vector%20search/</guid>
             
             
         </item>
@@ -1673,6 +2251,44 @@ $ python3 -c &quot;import tensorflow as tf; print(tf.reduce_sum(tf.random.normal
             <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
             <link>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/install_tensorflow.html</link>
             <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/install_tensorflow.html</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>개요</title>
+            <description># Darknet을 통하여 YoloV4 사용하기
+#### https://github.com/AlexeyAB/darknet
+해당 문서는 위 repository의 darknet이란 프레임워크를 이용하여 CNN 모델 중 하나인 YoloV4를 학습해보고 실행해보는 것을 목적으로 하고있다.
+
+
+YoloV4 알고리즘 간단 설명(작성 중)</description>
+            <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/introduction.html</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/introduction.html</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>개요</title>
+            <description># DeepLabCut 개요 번역
+#### http://www.mousemotorlab.org/deeplabcut
+
+#### DeepLabCut : 동물 포즈 추정을 위한 소프트웨어 패키지
+
+DeepLabCut은 3D 마커가 없는 자세 추정에 효율적인 방법을 제공한다. DeepLabCut은 멋진 결과를 달성한 *deep neural networks*에 기반한 전이학습을 가능하게 해준다. (DeepLabCut에서는 일반적으로 50~200 프레임만 있으면 최소한의 학습 데이터를 마련한 것이다).
+DeepLabCut은 다양한 행동에 거쳐 다양한 종들의 다양한 바디 파트를 트랙킹할 수 있다.
+
+이 패키지는 오픈 소스이고, 빠르고, 활동적이고 3D 포즈 측정 계산에 사용할 수 있다. 
+원본 논문과 최근 연구 동향을 확인할 수 있다.
+
+
+
+</description>
+            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/introduction.html</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/introduction.html</guid>
             
             
         </item>
@@ -1946,29 +2562,6 @@ keypointPositions = heatmapPositions * outputStride + offsetVectors
         </item>
         
         <item>
-            <title>개요</title>
-            <description># DeepLabCut 개요 번역
-#### http://www.mousemotorlab.org/deeplabcut
-
-#### DeepLabCut : 동물 포즈 추정을 위한 소프트웨어 패키지
-
-DeepLabCut은 3D 마커가 없는 자세 추정에 효율적인 방법을 제공한다. DeepLabCut은 멋진 결과를 달성한 *deep neural networks*에 기반한 전이학습을 가능하게 해준다. (DeepLabCut에서는 일반적으로 50~200 프레임만 있으면 최소한의 학습 데이터를 마련한 것이다).
-DeepLabCut은 다양한 행동에 거쳐 다양한 종들의 다양한 바디 파트를 트랙킹할 수 있다.
-
-이 패키지는 오픈 소스이고, 빠르고, 활동적이고 3D 포즈 측정 계산에 사용할 수 있다. 
-원본 논문과 최근 연구 동향을 확인할 수 있다.
-
-
-
-</description>
-            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
-            <link>https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/introduction.html</link>
-            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/introduction.html</guid>
-            
-            
-        </item>
-        
-        <item>
             <title>최적화 함수들(optimization)</title>
             <description># 최적화 함수들(optimization)
 신경망 학습의 목적은 손실 함수의 값을 가능한 한 낮추는 매개변수를 찾는 것이며, 이러한 문제를 푸는 것을 최적화(optimization)이라고 한다.
@@ -2047,6 +2640,94 @@ AdaGrad는 과거의 기울기를 제곱하여 계속 더해간다. 그래서 �
             <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
             <link>https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/optimization.html</link>
             <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/optimization.html</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>트레이닝</title>
+            <description># 환경설정
+Ubuntu 16.04 환경에서 작업하였다.
+
+### Requirements
+```
+CMake &gt;= 3.12
+
+$ sudo apt install cmake
+```
+```
+CUDA &gt;= 10.0
+
+network 형태로 설치(이 형태로 하면 패치를 받을 필요가 없어서 편하다)
+$ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-ubuntu1604.pin
+$ sudo mv cuda-ubuntu1604.pin /etc/apt/preferences.d/cuda-repository-pin-600
+$ sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
+$ sudo add-apt-repository &quot;deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/ /&quot;
+$ sudo apt-get update
+$ sudo apt-get -y install cuda
+```
+```
+OpenCV &gt;= 2.4
+
+$ sudo apt-get install build-essential cmake pkg-config libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev libavcodec-dev libavformat-dev libswscale-dev libxvidcore-dev libx264-dev libxine2-dev libv4l-dev v4l-utils libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libqt4-dev mesa-utils libgl1-mesa-dri libqt4-opengl-dev libatlas-base-dev gfortran libeigen3-dev python2.7-dev python3-dev python-numpy python3-numpy
+임시 폴더 생성
+$ wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.2.0.zip
+$ unzip opencv.zip
+$ wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.2.0.zip
+$ unzip opencv_contrib.zip
+$ cd opencv-3.2.0
+$ mkdir build
+$ cd build
+$ make -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=OFF -D WITH_IPP=OFF -D WITH_1394=OFF -D BUILD_WITH_DEBUG_INFO=OFF -D BUILD_DOCS=OFF -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D ENABLE_NEON=ON -D WITH_QT=ON -D WITH_OPENGL=ON -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.2.0/modules -D WITH_V4L=ON -D WITH_FFMPEG=ON -D WITH_XINE=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D PYTHON_INCLUDE_DIR=/usr/include/python2.7 -D PYTHON_INCLUDE_DIR2=/usr/include/x86_64-linux-gnu/python2.7 -D PYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so ../
+$ make -j8 (cpu 코어 수에 따라서 숫자 조절)
+$ sudo make install
+설치확인
+$ pkg-config --modversion opencv
+$ pkg-config --libs --cflags opencv
+```
+&lt;img src=&quot;opencv.png&quot;/&gt;
+
+```
+cuDNN &gt;= 7.0
+
+1. https://developer.nvidia.com/cudnn 이동
+2. Download cuDNN 클릭
+3. Login
+4. https://developer.nvidia.com/rdp/cudnn-archive 이동
+5. Download cuDNN v7.6.5 (November 18th, 2019), for CUDA 10.2 선택
+6. cuDNN Runtime Library for Ubuntu16.04 (Deb) 다운로드
+7. sudo dpkg -i 다운받은deb파일
+```
+
+### darknet 설치
+위의 requirements가 모두 설치되었다는 가정하에 진행한다.
+
+* https://github.com/AlexeyAB/darknet.git 받고 해당 폴더 이동
+* Makefile 열어서 수정(아래 그림 파일 참조)
+&lt;img src=&quot;makefile.png&quot;/&gt;
+본인의 경우에는 현재 PC의 상황에 맞게 다음과 같이 설정하였다.
+```
+GPU=1
+CUDNN=1
+CUDNN_HALF=0
+OPENCV=1
+AVX=0
+OPENMP=0
+LIBSO=1
+ZED_CAMERA=0
+ZED_CAMERA_v2_8=0
+```
+* $ make 명령어를 통해 컴파일
+* 컴파일 도중 NVCC 에러가 날 수도 있다. 이때는 다시 Makefile을 열어서 본인의 nvcc 경로를 변경해줘야한다.
+일반적으로 위에서 cuda를 제대로 설치했으면 /usr/local/cuda/bin/nvcc 일 것이다.
+* ./darknet detector test ./cfg/coco.data ./cfg/yolov4.cfg ./yolov4.weights 명령어를 통해 올바르게 컴파일이 되었는지 확인을 해본다. 보통 makefile이나 실행 도중 에러가 나면 에러메시지를 잘 확인해 보길 바란다. cuda version 문제 또는 cudnn version문제 또는 opencv 관련 문제일 것이다.
+
+
+
+</description>
+            <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/training.html</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/training.html</guid>
             
             
         </item>
