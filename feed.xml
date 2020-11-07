@@ -6,8 +6,8 @@
         <description>차곡차곡 쌓아가는 기술블로그입니다. 되도록 정확한 자료만을 정리하려고 노력합니다.</description>
         <link>https://east-rain.github.io/</link>
         <atom:link href="https://east-rain.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sat, 07 Nov 2020 18:26:12 +0900</pubDate>
-        <lastBuildDate>Sat, 07 Nov 2020 18:26:12 +0900</lastBuildDate>
+        <pubDate>Sat, 07 Nov 2020 18:33:07 +0900</pubDate>
+        <lastBuildDate>Sat, 07 Nov 2020 18:33:07 +0900</lastBuildDate>
         <generator>Jekyll v3.8.6</generator>
         
         <item>
@@ -1694,7 +1694,7 @@ history_fine = model.fit(train_batches,
 
 ### 다양한 기술에 관심이 많고 도큐먼트로 근본있게 배우기를 좋아합니다
 ### email : kdwooa@gmail.com
-### linkedIn : &lt;http://linkedin.com/in/dongwoo-kwak-b5782115a&gt;
+### linkedIn : &lt;http://linkedin.com/in/dongwoo-kwak-b5782115a&gt;{: target=&quot;_blank&quot;}
 </description>
             <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
             <link>https://east-rain.github.io/</link>
@@ -1716,12 +1716,12 @@ history_fine = model.fit(train_batches,
         
         <item>
             <title>이미지 유사도 검색</title>
-            <description>https://github.com/facebookresearch/faiss.git
+            <description>&lt;https://github.com/facebookresearch/faiss.git&gt;{: target=&quot;_blank&quot;}
 
 facebook에서 공개한 Faiss를 이용하여 이미지 유사도를 검색하였다. 
 
 ### Faiss란?
-Faiss는 밀도가 높은 벡터의 효율적인 유사성 검색 및 클러스터링을위한 라이브러리입니다. 여기에는 RAM에 맞지 않을 수있는 최대 크기의 벡터 세트에서 검색하는 알고리즘이 포함되어 있습니다. 평가 및 매개 변수 조정을위한 지원 코드도 포함되어 있습니다. Python / numpy를 위한 완전한 래퍼와 함께 C ++로 작성되었습니다. 가장 유용한 알고리즘 중 일부는 GPU에서 구현됩니다. Facebook AI Research에서 개발했습니다.
+Faiss는 밀도가 높은 벡터의 효율적인 유사성 검색 및 클러스터링을위한 라이브러리이다. 여기에는 RAM에 맞지 않을 수있는 최대 크기의 벡터 세트에서 검색하는 알고리즘이 포함되어 있다. 평가 및 매개 변수 조정을위한 지원 코드도 포함되어 있다. Python / numpy를 위한 완전한 래퍼와 함께 C ++로 작성되었다. 가장 유용한 알고리즘 중 일부는 GPU에서 구현된다. Facebook AI Research에서 개발했다.
 
 
 다양한 백터 유사도 검색 알고리즘들을 구현해놓고 쓰기 쉽게 말아 놓았다. 그 중에서 HNSW(Hierarchical Navigable Small World graphs)를 이용해서 이미지 유사도를 검색하였다.
@@ -1781,9 +1781,13 @@ if __name__ == '__main__':
     main()
 ```
 
+---
+
 해당 코드를 통해 백터 그래프를 그리면 다음과 같이 3개의 파일이 생성된다. fnames.txt, fvecs.bin, fvecs.bin.hnsw.index
 
 그리고 이제 이 파일들을 이용해서 유사도를 검색할 수 있다.
+
+---
 
 ```
 import os
@@ -2284,8 +2288,8 @@ keypointPositions = heatmapPositions * outputStride + offsetVectors
         <item>
             <title>개요 및 사용법</title>
             <description># DeepLabCut 개요 번역
-&lt;http://www.mousemotorlab.org/deeplabcut&gt;
-&lt;https://github.com/DeepLabCut/DeepLabCut&gt;
+&lt;http://www.mousemotorlab.org/deeplabcut&gt;{: target=&quot;_blank&quot;}
+&lt;https://github.com/DeepLabCut/DeepLabCut&gt;{: target=&quot;_blank&quot;}
 
 #### DeepLabCut : 동물 포즈 추정을 위한 소프트웨어 패키지
 
@@ -2444,8 +2448,11 @@ skeleton:
 - - tail-middle-end
   - tail-end
 ```
+---
 
 config 파일을 내 입맛에 맞게 수정을 한 뒤 다음 코드를 이용해서 데이터 형식을 맞추고 트레이닝을 진행하였다.
+
+---
 
 ```python
 import os
@@ -2639,10 +2646,10 @@ YoloV4 알고리즘 간단 설명(작성 중)</description>
         <item>
             <title>개요 및 사용법</title>
             <description>## 해당 repository를 통해 개의 신체 자세를 추정하는 모델을 만들었다.
-&lt;https://github.com/ildoonet/tf-pose-estimation.git&gt;
+&lt;https://github.com/ildoonet/tf-pose-estimation.git&gt;{: target=&quot;_blank&quot;}
 
 ## 그리고 해당 블로그에서 openpose 동작 원리에 대해 많이 공부할 수 있었다. (사람의 자세 추정을 목표로 구현된 소스로 강아지 자세를 추정하려면 신체포인트가 달라서 많은 수정을 해야 한다)
-&lt;https://arvrjourney.com/human-pose-estimation-using-openpose-with-tensorflow-part-2-e78ab9104fc8&gt;
+&lt;https://arvrjourney.com/human-pose-estimation-using-openpose-with-tensorflow-part-2-e78ab9104fc8&gt;{: target=&quot;_blank&quot;}
 
 본래 Openpose는 human pose를 추론하는 알고리즘이다. CMU의 오리지날 논문 구현에서는 Caffe를 사용했지만, 해당 프로젝트에서는 텐서플로를 이용해 구현하였다.
 
