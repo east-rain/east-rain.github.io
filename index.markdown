@@ -13,5 +13,6 @@ date: 2020-04-23
 ## 귀여운 반려묘와 함께 지내고 있습니다
 <img src="/assets/images/java.jpg" width="40%" height="30%"/>
 
-### 한쪽만 파기보단 다양한 기술에 관심이 많고 도큐먼트를 좋아합니다
+### 다양한 기술에 관심이 많고 도큐먼트로 근본있게 배우기를 좋아합니다
 ### email : kdwooa@gmail.com
+### linkedIn : <http://linkedin.com/in/dongwoo-kwak-b5782115a>
