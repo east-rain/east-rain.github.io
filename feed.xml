@@ -6,8 +6,8 @@
         <description>차곡차곡 쌓아가는 기술블로그입니다. 되도록 정확한 자료만을 정리하려고 노력합니다.</description>
         <link>https://east-rain.github.io/</link>
         <atom:link href="https://east-rain.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sat, 07 Nov 2020 17:56:36 +0900</pubDate>
-        <lastBuildDate>Sat, 07 Nov 2020 17:56:36 +0900</lastBuildDate>
+        <pubDate>Sat, 07 Nov 2020 18:26:12 +0900</pubDate>
+        <lastBuildDate>Sat, 07 Nov 2020 18:26:12 +0900</lastBuildDate>
         <generator>Jekyll v3.8.6</generator>
         
         <item>
@@ -1704,325 +1704,12 @@ history_fine = model.fit(train_batches,
         </item>
         
         <item>
-            <title>PoseNet</title>
-            <description></description>
-            <pubDate>Wed, 06 May 2020 00:00:00 +0900</pubDate>
-            <link>https://east-rain.github.io/docs/Deep%20Learning/posenet/</link>
-            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/posenet/</guid>
-            
-            
-        </item>
-        
-        <item>
-            <title>Programming</title>
-            <description># Programming</description>
-            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
-            <link>https://east-rain.github.io/docs/Programming/</link>
-            <guid isPermaLink="true">https://east-rain.github.io/docs/Programming/</guid>
-            
-            
-        </item>
-        
-        <item>
-            <title>Deep Learning</title>
-            <description></description>
-            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
-            <link>https://east-rain.github.io/docs/Deep%20Learning/</link>
-            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/</guid>
-            
-            
-        </item>
-        
-        <item>
             <title>Openpose</title>
-            <description>https://github.com/ildoonet/tf-pose-estimation.git
-
-해당 repository를 통해 개의 신체 자세를 추정하는 모델을 개발하였다.
-
-https://arvrjourney.com/human-pose-estimation-using-openpose-with-tensorflow-part-2-e78ab9104fc8
-
-그리고 해당 블로그에서 openpose 구현에 대한 많은것을 배울 수 있었다.
-
-본래 Openpose는 human pose를 추정하는 알고리즘이다. CMU의 오리지날 논문 구현에서는 Caffe를 사용했지만, 해당 프로젝트에서는 텐서플로를 이용해 구현하였다.
-
-
-### Requirements
-* python3
-* tensorflow 1.4.1+
-* opencv3, protobuf, python3-tk
-* slidingwindow
-
-### Install
-1. 해당 repository를 받는다.
-2. pip install -r requirements.txt 를 통해 필요한 패키지를 설치한다
-3. tf_pose/pafprocess 로 이동한다
-4. swig -python -c++ pafprocess.i &amp;&amp; python3 setup.py build_ext --inplace 로 c++ 코드를 python으로 치환해 준다.
-
-
-해당 구현의 경우 인간 자세 Coco dataset의 keypoint 라벨링에 맞게 트레이닝을 하고 추론이 되도록 되어있다. 따라서 인간의 keypoint 개수와 keypoint pair를 강아지에 맞개 개수를 변경해줘야 한다. 또한 repository가 관리된지 조금 오래 지나서 commit이 이루어 지지 않고 다른 버전의 tensorflow와 cuda version에서 동작이 안되는 부분이 있어서 부분부분 수정이 필요하다.
-
-
-수정해야하는 부분을 지금부터 명시하겠다.
-
-
-coco dataset의 인간의 키포인트는 총 18개이다.(background까지 하면 19개).
-내가 정의해준 강아지의 신체포인트는 총 32개이다.(background까지 하면 33개)
-
-```
-# common.py
-
-LEye = 0
-REye = 1
-Nose = 2
-LMouth = 3
-RMouth = 4
-MouthRow = 5
-Tongue = 6
-LEarStart = 7
-LEarMiddle = 8
-LEarEnd = 9
-REarStart = 10
-REarMiddle = 11
-REarEnd = 12
-Withers = 13
-Prosternum = 14
-LElbow = 15
-LForearm = 16
-LForefoot = 17
-RElbow = 18
-RForearm = 19
-RForefoot = 20
-LStiffle = 21
-LHock = 22
-LHindfoot = 23
-RStiffle = 24
-RHock = 25
-RHindfoot = 26
-TailStart = 27
-TailStartMiddle = 28
-TailMiddle = 29
-TailMiddleEnd = 30
-TailEnd = 31
-Background = 32
-
-# 신체 포인트를 이어주는 pair는 다음과 같다. CocoPairRender는 모두 표시해주고 싶어서 원래 있던 [:-2]를 제외하였다.
-
-CocoPairs = [
-    (2, 0), (0, 7), (7, 8), (8, 9), (2, 1), (1, 10), (10, 11), (11, 12), (2, 5), (5, 3),
-    (5, 4), (5, 6), (2, 13), (2, 14), (13, 15), (14, 15), (15, 16), (16, 17), (13, 18), (14, 18),
-    (18, 19), (19, 20), (13, 27), (14, 27), (27, 21), (21, 22), (22, 23), (27, 24), (24, 25), (25, 26),
-    (27, 28), (28, 29), (29, 30), (30, 31)
-]   # = 34
-CocoPairsRender = CocoPairs
-
-CocoColors = [[255, 0, 0], [255, 85, 0], [255, 170, 0], [255, 255, 0], [255, 255, 0], [255, 255, 0], [255, 255, 0],
-              [170, 255, 0], [170, 255, 0], [170, 255, 0], [85, 255, 0], [85, 255, 0], [85, 255, 0],
-              [0, 255, 0], [0, 255, 85], [0, 255, 170], [0, 255, 170], [0, 255, 170],
-              [0, 255, 255], [0, 255, 255], [0, 255, 255], [0, 170, 255], [0, 170, 255], [0, 170, 255],
-              [0, 85, 255], [0, 85, 255], [0, 85, 255],
-              [0, 0, 255], [0, 0, 255], [0, 0, 255], [0, 0, 255], [0, 0, 255], [85, 0, 255], [170, 0, 255]]
-
-```
-```
-# estimator.py
-
-# 머리 박스 쳐주는 것을 강아지 신체포인트에 맞게 변경
-def get_face_box(self, img_w, img_h, mode=0):
-    _NOSE = CocoPart.Nose.value
-    _NECK = CocoPart.MouthRow.value
-    _REye = CocoPart.REye.value
-    _LEye = CocoPart.LEye.value
-    _REar = CocoPart.REarEnd.value
-    _LEar = CocoPart.LEarEnd.value
-
-# 부분부분 숫자가 18로 되어있는 것들을 32로 바꿔줘야 한다. 사람 신체포인트는 18개, 그리고 정의한 강아지 신체포인트는 32개이기 때문.
-for part_idx in range(32):
-
-# 그리고 heatMat과 pafMat 부분이 19로 되어있는데 해당 부분은 34로 변경해준다
-self.tensor_heatMat = self.tensor_output[:, :, :, :34]
-self.tensor_pafMat = self.tensor_output[:, :, :, 34:]
-self.upsample_size = tf.placeholder(dtype=tf.int32, shape=(2,), name='upsample_size')
-self.tensor_heatMat_up = tf.image.resize_area(self.tensor_output[:, :, :, :34], self.upsample_size,
-                                                      align_corners=False, name='upsample_heatmat')
-self.tensor_pafMat_up = tf.image.resize_area(self.tensor_output[:, :, :, 34:], self.upsample_size,
-                                                     align_corners=False, name='upsample_pafmat')
-if trt_bool is True:
-    smoother = Smoother({'data': self.tensor_heatMat_up}, 25, 3.0, 34)
-else:
-    smoother = Smoother({'data': self.tensor_heatMat_up}, 25, 3.0)
-```
-```
-# network_mobilenet_v2.py
-# 프로젝트 진행에서 backbone 모델은 가장 만만한 mobilenet_v2를 이용하였다. 해당 부분 또한 신체포인트 개수가 다르기에 노드의 개수를 변경해 줘야 한다.
-
-# 38 -&gt; 68으로
-# 19 -&gt; 34로
-```
-```
-# pose_augment.py
-트레이닝 시에 데이터 augmentation을 위해서 변경된 신체포인트를 명시해 주자. 일반적인 경우는 상관없지만 flip같은 경우에 신체포인트 좌우가 바뀌어야 한다
-
-# flip meta
-    flip_list = [CocoPart.REye, CocoPart.LEye, CocoPart.Nose, CocoPart.RMouth, CocoPart.LMouth, CocoPart.MouthRow, CocoPart.Tongue, CocoPart.REarStart,
-                 CocoPart.REarMiddle, CocoPart.REarEnd, CocoPart.LEarStart, CocoPart.LEarMiddle, CocoPart.LEarEnd, CocoPart.Withers,
-                 CocoPart.Prosternum, CocoPart.RElbow, CocoPart.RForearm, CocoPart.RForefoot, CocoPart.LElbow, CocoPart.LForearm, CocoPart.LForefoot,
-                 CocoPart.RStiffle, CocoPart.RHock, CocoPart.RHindfoot, CocoPart.LStiffle, CocoPart.LHock, CocoPart.LHindfoot, CocoPart.TailStart,
-                 CocoPart.TailStartMiddle, CocoPart.TailMiddle, CocoPart.TailMiddleEnd, CocoPart.TailEnd, CocoPart.Background]
-
-```
-```
-# pose_dataset.py
-__coco_parts = 34
-__coco_vecs = list(zip(
-        [3, 1, 8, 9,  3,  2, 11, 12, 3, 6, 6, 6,  3,  3, 14, 15, 16, 17, 14, 15, 19, 20, 14, 15, 28, 22, 23, 28, 25, 26, 28, 29, 30, 31],
-        [1, 8, 9, 10, 2, 11, 12, 13, 6, 4, 5, 7, 14, 15, 16, 16, 17, 18, 19, 19, 20, 21, 28, 28, 22, 23, 24, 25, 26, 27, 29, 30, 31, 32]
-    ))
-
-transform = list(zip(
-            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
-            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
-        ))
-
-# 여기서 기본으로 제공되는 데이터셋이 아닌 커스텀 데이터셋 명시해줌
-if is_train:
-    whole_path = os.path.join(path, 'train.json')
-else:
-    whole_path = os.path.join(path, 'test.json')
-    self.img_path = (img_path if img_path is not None else '') + ('/train/' if is_train else '/test/')
-
-# tensorflow 버전에 따라서 수정해줘야 하는 경우도 있음
-ds = MultiThreadMapData(ds, num_thread=16, map_func=read_image_url, buffer_size=1000)
-```
-```
-# train.py
-
-# vectmap_node의 기존 38 -&gt; 68로, heatmap_node는 기존 19 -&gt; 34로
-vectmap_node = tf.placeholder(tf.float32, shape=(args.batchsize, output_h, output_w, 68), name='vectmap')
-heatmap_node = tf.placeholder(tf.float32, shape=(args.batchsize, output_h, output_w, 34), name='heatmap')
-
-그리고 트레이닝이 일정부분 지속 된 후 validation을 해주는 부분이 있다. 여기서 아마 계속 오류가 발생할 것이다. df_valid.reset_state() 시점에서 에러가 날것이다. 그냥 맘 편하게 세션이 시작하기 전에 validation 이미지들을 메모리에 올려놓는 것이 정신건강에 이롭다.
-
-# 해당 코드를 with tf.Session(config=config) as sess: 위로 올려놓자. 그러면 밑에서 validation_cache가 존재하기 때문에 다시 불러오려고 노력하지 않는다.
-for images_test, heatmaps, vectmaps in tqdm(df_valid.get_data()):
-        validation_cache.append((images_test, heatmaps, vectmaps))
-del df_valid
-df_valid = None
-
-pafMat, heatMat = outputMat[:, :, :, 34:], outputMat[:, :, :, :34]
-```
-
-거의 다 왔다. 그리고 openpose 논문을 보면 알겠지만 각 지점의 추정 히트맵 부분을 연결해주는 것이 필요하다. 해당 부분은 속도 때문인지 python으로 구현하지 않고 c++ 코드로 구현이 되어있다. 신체포인트와 페어의 개수가 다르므로 이 부분 또한 변경을 해줘야 한다.
-
-tf_pose/pafprocess (해당 부분을 수정 후에는 swig를 통해 build를 다시 해줘야 한다) 에 존재하는 파일들을 수정해주자
-```
-# pafprocess.cpp
-if (found == 1) {
-    if (subset[subset_idx1][part_id2] != conns[conn_id].cid2) {
-    subset[subset_idx1][part_id2] = conns[conn_id].cid2;
-    subset[subset_idx1][33] += 1;
-    subset[subset_idx1][32] += peak_infos_line[conns[conn_id].cid2].score + conns[conn_id].score;
-    }
-} else if (found == 2) {
-    int membership=0;
-    for (int subset_id = 0; subset_id &lt; 32; subset_id ++) {
-        if (subset[subset_idx1][subset_id] &gt; 0 &amp;&amp; subset[subset_idx2][subset_id] &gt; 0) {
-            membership = 2;
-        }
-    }
-
-    if (membership == 0) {
-        for (int subset_id = 0; subset_id &lt; 32; subset_id ++) subset[subset_idx1][subset_id] += (subset[subset_idx2][subset_id] + 1);
-
-            subset[subset_idx1][33] += subset[subset_idx2][33];
-            subset[subset_idx1][32] += subset[subset_idx2][32];
-            subset[subset_idx1][32] += conns[conn_id].score;
-            subset.erase(subset.begin() + subset_idx2);
-        } else {
-            subset[subset_idx1][part_id2] = conns[conn_id].cid2;
-            subset[subset_idx1][33] += 1;
-            subset[subset_idx1][32] += peak_infos_line[conns[conn_id].cid2].score + conns[conn_id].score;
-        }
-} else if (found == 0) {
-    vector&lt;float&gt; row(34);
-    for (int i = 0; i &lt; 34; i ++) row[i] = -1;
-    row[part_id1] = conns[conn_id].cid1;
-    row[part_id2] = conns[conn_id].cid2;
-    row[33] = 2;
-    row[32] = peak_infos_line[conns[conn_id].cid1].score + peak_infos_line[conns[conn_id].cid2].score + conns[conn_id].score;
-    subset.push_back(row);
-}
-
-
-float get_score(int human_id) {
-    return subset[human_id][32] / subset[human_id][33];
-}
-```
-```
-# pafprocess.h
-const float THRESH_HUMAN_SCORE = 0.1;
-const int NUM_PART = 32;
-
-const int STEP_PAF = 10;
-
-const int COCOPAIRS_SIZE = 34;
-const int COCOPAIRS_NET[COCOPAIRS_SIZE][2] = {
-    {0, 1}, {2, 3}, {4, 5}, {6, 7}, {8, 9}, {10, 11}, {12, 13}, {14, 15}, {16, 17}, {18, 19},
-    {20, 21}, {22, 23}, {24, 25}, {26, 27}, {28, 29}, {30, 31}, {32, 33}, {34, 35}, {36, 37}, {38, 39},
-    {40, 41}, {42, 43}, {44, 45}, {46, 47}, {48, 49}, {50, 51}, {52, 53}, {54, 55}, {56, 57}, {58, 59},
-    {60, 61}, {62, 63}, {64, 65}, {66, 67}
-};
-
-const int COCOPAIRS[COCOPAIRS_SIZE][2] = {
-    {2, 0}, {0, 7}, {7, 8}, {8, 9}, {2, 1}, {1, 10}, {10, 11}, {11, 12}, {2, 5}, {5, 3},
-    {5, 4}, {5, 6}, {2, 13}, {2, 14}, {13, 15}, {14, 15}, {15, 16}, {16, 17}, {13, 18}, {14, 18},
-    {18, 19}, {19, 20}, {13, 27}, {14, 27}, {27, 21}, {21, 22}, {22, 23}, {27, 24}, {24, 25}, {25, 26},
-    {27, 28}, {28, 29}, {29, 30}, {30, 31}
-};
-```
+            <description>&lt;img src=&quot;main.png&quot;&gt;
 </description>
             <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
             <link>https://east-rain.github.io/docs/Deep%20Learning/Openpose/</link>
             <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/Openpose/</guid>
-            
-            
-        </item>
-        
-        <item>
-            <title>DeepLabCut</title>
-            <description></description>
-            <pubDate>Wed, 06 May 2020 00:00:00 +0900</pubDate>
-            <link>https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/</link>
-            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/</guid>
-            
-            
-        </item>
-        
-        <item>
-            <title>딥러닝 기초</title>
-            <description></description>
-            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
-            <link>https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/</link>
-            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/</guid>
-            
-            
-        </item>
-        
-        <item>
-            <title>텐서플로우 튜토리얼</title>
-            <description></description>
-            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
-            <link>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/</link>
-            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/</guid>
-            
-            
-        </item>
-        
-        <item>
-            <title>Yolo(darknet)</title>
-            <description></description>
-            <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
-            <link>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/</link>
-            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/</guid>
             
             
         </item>
@@ -2212,6 +1899,76 @@ if __name__ == '__main__':
         </item>
         
         <item>
+            <title>PoseNet</title>
+            <description></description>
+            <pubDate>Wed, 06 May 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/posenet/</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/posenet/</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>Deep Learning</title>
+            <description></description>
+            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>DeepLabCut</title>
+            <description>&lt;img src=&quot;main.png&quot;&gt;</description>
+            <pubDate>Wed, 06 May 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>Programming</title>
+            <description># Programming</description>
+            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Programming/</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Programming/</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>딥러닝 기초</title>
+            <description></description>
+            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/basic%20deeplearning/</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>텐서플로우 튜토리얼</title>
+            <description></description>
+            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>Yolo(darknet)</title>
+            <description></description>
+            <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/</guid>
+            
+            
+        </item>
+        
+        <item>
             <title>텐서플로우 설치 - windows</title>
             <description># 텐서플로우 설치 - windows
 
@@ -2258,21 +2015,274 @@ $ python3 -c &quot;import tensorflow as tf; print(tf.reduce_sum(tf.random.normal
         
         <item>
             <title>개요</title>
-            <description># Darknet을 통하여 YoloV4 사용하기
-#### https://github.com/AlexeyAB/darknet
-해당 문서는 위 repository의 darknet이란 프레임워크를 이용하여 CNN 모델 중 하나인 YoloV4를 학습해보고 실행해보는 것을 목적으로 하고있다.
+            <description># PoseNet 개요 번역
+#### https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5
+
+### TensorFlow.js를 사용하여 브라우저에서 실시간 인간 자세 추정하기
+
+Google Creative Lab과 협업하여, PoseNet의 TensorFlow.js 버전 릴리즈을 알리게되어 흥분된다. 이 머신 러닝 모델은 브라우저에서 실시간 인간 자세 추정을 가능하게 한다.
+
+*그래서 자세 추정(pose estimation)이 뭔데?* 자세 추정은 컴퓨터 비전분야에서 비디오나 이미지의 사람 모양을 탐지하는 것을 나타낸다. 예를들어 누군가의 팔꿈치가 이미지 어디에 위치하는지 나타낸다. 명백하게 이 기술은 이미지에 있는 사람이 누구인지 인식하지 못한다. 이 알고리즘은 단순하게 몸의 위치 정보를 추정할 뿐이다.
+
+*좋아, 이게 왜 흥미진진한데?* 자세 추정은 다양한 쓰임세가 있다. 우리는 더 많은 개발자가 자신의 고유한 프로젝트에 자세 추정을 실험하고 적용할 수 있기를 바란다. 대부분의 자세 추정 시스템이 오픈 소스지만, 시스템 셋업 또는 카메라 같은 몇가지 특별한 설정이 필요하다. TensorFlow.js에서 PoseNet을 실행하여 웹캠이 달린 데스크탑이나 핸드폰에서 곧바로 체험해 볼 수 있다. TensorFlow.js의 PoseNet은 브라우저에서 동작하기 때문에 사용자의 컴퓨터에 어떠한 포즈 데이터도 남기지 않는다.
+
+이 모델을 사용하는 방법에 대해서 깊게 파고들어가기전에, 이 프로젝트를 가능하게 만들어준 분들에게 감사한다. George Papandreou and Tyler Zhu, Google researchers behind the papers Towards Accurate Multi-person Pose Estimation in the Wild and PersonLab: Person Pose Estimation and Instance Segmentation with a Bottom-Up, Part-Based, Geometric Embedding Model, and Nikhil Thorat and Daniel Smilkov, engineers on the Google Brain team behind the TensorFlow.js library.
+
+### PoseNet 시작하기
+PoseNet은 싱글 포즈와 멀티플 포즈를 추측할 수 있다. 이 의미는 알고리즘의 버전에 따라서 한사람만 추정하거나 여러 사람을 추정할 수 있다는 것이다. 왜 버전이 두 개로 나뉘냐? 한사람의 포즈를 디텍트 하는 것이 더 빠르고 간단하다 그러나 이미지에 한가지의 객체만 있어야 한다. 우리는 싱글-포즈 모델을 먼저 알아볼 것이다. 왜냐하면 더 쉬우니까
+
+고수준의 자세 추정은 두개의 페이즈로 나뉜다.
+1. convolutional neural network를 통해 RGB 이미지가 공급된다
+2. 싱글-포즈 또는 멀티-포즈 디코딩 알고리즘은 다음과 같은 것들을 모델의 아웃풋에서 해독하는데 사용횐다. pose, pose 신뢰 점수, Keypoint 위치 그리고 Keypoint 신뢰 점수
+
+그럼 이러한 키워드가 무엇을 의미하는지 보자
+* pose - 가장 높은 레벨에서 PoseNet은 키포인트의 리스트와 각각의 detect 된 사람의 인스턴스 레벨의 신뢰 점수를 포함한 pose object를 리턴한다
+
+&lt;img src=&quot;https://miro.medium.com/max/1400/1*3bg3CO1b4yxqgrjsGaSwBw.png&quot;/&gt;*PoseNet returns confidence values for each person detected as well as each pose keypoint detected. Image Credit: “Microsoft Coco: Common Objects in Context Dataset”, https://cocodataset.org.*
+
+* Pose 신뢰 점수 - 이것은 자세의 추정에서 신뢰 점수 전체를 나타낸다. 이것의 범위는 0.0에서 1.0 까지이다. 이 점수는 충분한 점수를 얻지 못한 포즈를 없애는데 사용될 수 있다.
+
+* KeyPoint - 코, 오른쪽 귀, 왼쪽 무릎, 오른쪽 발 등등 추정된 사람 자세의 부분. PoseNet은 현재 17개의 keypoint를 디텍할 수 있다. 밑에 그 예가 있다.
+
+&lt;img src=&quot;https://miro.medium.com/max/1400/1*7qDyLpIT-3s4ylULsrnz8A.png&quot;/&gt;
+
+* KeyPoint 신뢰 점수 - 이것은 추정한 keypoint 위치가 정확한지를 나타낸다. 이것의 범위는 0.0 부터 1.0 까지이다. 충분한 점수를 얻지 못한 keypoint를 지우는데 사용할 수 있다.
+
+* Keypoint Position - 인풋 이미지에서 키포인트가 디텍 된 x,y 좌표를 나타낸다.
 
 
-YoloV4 알고리즘 간단 설명(작성 중)</description>
-            <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
-            <link>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/introduction.html</link>
-            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/introduction.html</guid>
+
+#### Part 1: TensorFlow.js와 PoseNet 라이브러리 임포트하기
+모델의 복잡성을 추상화하고 기능을 사용하기 쉬운 방법으로 캡슐화하는 많은 작업이 진행되었다. PoseNet 프로젝트 설정 방법의 기본 사항을 살펴보자.
+
+이 라이브러리는 npm으로 설치할 수 있다
+```
+npm install @tensorflow-models/posenet
+```
+
+그리고 모듈을 가져온다
+```
+import * as posenet from '@tensorflow-models/posenet';
+const net = await posenet.load();
+```
+또는 페이지에 껴넣는다
+```
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;!-- Load TensorFlow.js --&gt;
+    &lt;script src=&quot;https://unpkg.com/@tensorflow/tfjs&quot;&gt;&lt;/script&gt;
+    &lt;!-- Load Posenet --&gt;
+    &lt;script src=&quot;https://unpkg.com/@tensorflow-models/posenet&quot;&gt;
+    &lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+      posenet.load().then(function(net) {
+        // posenet model loaded
+      });
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+
+#### Part 2a: single-person 자세 추정
+
+&lt;img src=&quot;https://miro.medium.com/max/1026/1*SpWPwprVuNYhXs44iTSODg.png&quot;/&gt;*Example single-person pose estimation algorithm applied to an image. Image Credit: “Microsoft Coco: Common Objects in Context Dataset”, https://cocodataset.org.*
+
+시작하기 전에 single-pose 추정 알고리즘은 2개를 추정하는거보다 간단하고 쉽다. 이것은 이미지나 비디오에서 오직 한 사람만이 이미지의 중앙에 위치할 때 가장 이상적이다. 불이익은 만약 많은 사람이 이미지에 존재한다면 각각의 사람들의 키포인트가 섞여서 추정될 수 있다. 만약 많은 사람이 이미지에 등장한다면 multi-pose 추정 알고리즘을 사용해라
+
+single-pose 추정 알고리즘의 inputs을 알아보자
+* Input image element - 자세를 추정할 이미지를 가지고 있는 html 요소이다. 보통 img나 video tag를 가지고 있다. 그리고 이미지나 비디오는 사각형 형태여야 한다.
+
+* Image scale factor - 0.2부터 1까지의 값을 가지고 기본값은 0.5이다. 네트워크를 통해 이미지를 공급하기 전에 이 값을 낮게 설정하면 이미지를 축소하고 정확도를 포기하여 네트워크의 속도를 높일 수 있다.
+
+* Flip horizontal - 기본값은 false이다. 만약 포즈를 뒤집거나 대칭시켜야 하는 경우 이 값을 true로 설정하면 된다.
+
+* Output stride - 32,16 또는 8이어야 하고 기본값은 16이다. 내부적으로 이 파라메터는 신경망 안에 레이어의 높이와 넓이에 영향을 준다. 고차원적인 수준에서는 이것은 정확도와 속도에 영향을 준다. 저차원적인 수준에서는 출력값이 낮을수록 속도는 빨라지지만 정확도는 낮아진다.
+
+이제 single-pose 추정 알고리즘의 아웃풋을 알아보자.
+* 포즈 신뢰 점수와 17개의 키포인트를 가진 배열
+* 각 키포인트에는 키포인트 위치 및 키포인트 신뢰 점수가 포함된다.
+
+해당 코드 블락은 single-pose 추정 알고리즘을 사용하는 방법이다.
+```
+const imageScaleFactor = 0.50;
+const flipHorizontal = false;
+const outputStride = 16;
+const imageElement = document.getElementById('cat');
+// load the posenet model
+const net = await posenet.load();
+const pose = await net.estimateSinglePose(imageElement, scaleFactor, flipHorizontal, outputStride);
+```
+다음과 같이 출력이 나온다
+```
+{
+  &quot;score&quot;: 0.32371445304906,
+  &quot;keypoints&quot;: [
+    { // nose
+      &quot;position&quot;: {
+        &quot;x&quot;: 301.42237830162,
+        &quot;y&quot;: 177.69162777066
+      },
+      &quot;score&quot;: 0.99799561500549
+    },
+    { // left eye
+      &quot;position&quot;: {
+        &quot;x&quot;: 326.05302262306,
+        &quot;y&quot;: 122.9596464932
+      },
+      &quot;score&quot;: 0.99766051769257
+    },
+    { // right eye
+      &quot;position&quot;: {
+        &quot;x&quot;: 258.72196650505,
+        &quot;y&quot;: 127.51624706388
+      },
+      &quot;score&quot;: 0.99926537275314
+    },
+    ...
+  ]
+}
+```
+#### Part 2b: Multi-person 자세 추정
+
+&lt;img src=&quot;https://miro.medium.com/max/1026/1*EZOqbMLkIwBgyxrKLuQTHA.png&quot;/&gt;*Example multi-person pose estimation algorithm applied to an image. Image Credit: “Microsoft Coco: Common Objects in Context Dataset”, https://cocodataset.org*
+
+multi-person 자세 추정 알고리즘은 이미지에서 많은 사람과 포즈를 추정할 수 있다. 이것은 single-pose 알고리즘보다 느리지만 사진에 많은 사람들이 있는 경우 이점을 가지고 있다. 그리고 잘못된 자세를 추정하지 않을 확률이 좀 더 높다. 이런 이유로, 한사람의 자세를 디텍해야 하는 경우에도 이 알고리즘을 쓰는게 바람직 할 수도 있다.
+
+게자다가, 이 알고리즘의 특징은 사람수에 따라서 성능이 영향을 받지 않는다는 것이다. 감지를 해야할 사람이 15명이든 5명이든 같은 계산 시간이 걸린다.
+
+inputs을 봐보자
+* Input image element - single-pose 추정과 같다
+* Image scale factor - single-pose 추정과 같다
+* Flip horizontal - single-pose 추정과 같다
+* Output stride - single-pose 추정과 같다
+* Maximum pose detections - Integer이고 기본값은 5이다. 디텍을 할 최대 포즈 개수이다.
+* Pose confidence score threshold - 0.0 ~ 0.1값이고 기본값은 0.5이다. 고차원적 수준에서 이것은 반환되는 포즈의 신뢰 점수를 제어한다
+* Non-maximum suppression(NMS) radius - 픽셀의 숫자이다. 고차원적 수준에서는 반환되는 포즈 사이의 최소 거리를 제어한다. 이 값의 기본값은 20이며 대부분의 경우에 괜찮다. 더 작은 정확도의 포즈를 나타내거나 숨기거나 할 때 사용될 수 있지만, 자세 신뢰 점수가 충분히 좋지 않을 때 사용하기에 좋다
+
+출력값을 알아보자
+* 자세의 배열을 내는 추정치
+* 각 자세에는 single-pose 추정 알고리즘에서 설명한 것과 동일한 정보가 포함되어있다.
+
+이 코드 블록은 multiple-person 추정 알고리즘을 사용하는 방법을 부여준다
+```
+const imageScaleFactor = 0.50;
+const flipHorizontal = false;
+const outputStride = 16;
+// get up to 5 poses
+const maxPoseDetections = 5;
+// minimum confidence of the root part of a pose
+const scoreThreshold = 0.5;
+// minimum distance in pixels between the root parts of poses
+const nmsRadius = 20;
+const imageElement = document.getElementById('cat');
+// load posenet
+const net = await posenet.load();
+const poses = await net.estimateMultiplePoses(
+  imageElement, imageScaleFactor, flipHorizontal, outputStride,    
+  maxPoseDetections, scoreThreshold, nmsRadius);
+```
+
+출력값은 다음과 같다
+```
+// array of poses/persons
+[ 
+  { // pose #1
+    &quot;score&quot;: 0.42985695206067,
+    &quot;keypoints&quot;: [
+      { // nose
+        &quot;position&quot;: {
+          &quot;x&quot;: 126.09371757507,
+          &quot;y&quot;: 97.861720561981
+         },
+        &quot;score&quot;: 0.99710708856583
+      },
+      ... 
+    ]
+  },
+  { // pose #2
+    &quot;score&quot;: 0.13461434583673,
+    &quot;keypositions&quot;: [
+      { // nose
+        &quot;position&quot;: {
+          &quot;x&quot;: 116.58444058895,
+          &quot;y&quot;: 99.772533416748
+        },
+      &quot;score&quot;: 0.9978438615799
+      },
+      ...
+    ]
+  },
+  ... 
+]
+```
+
+여기 까지가 PoseNet 데모를 시작하기에 충분하지만 모델 및 구현의 세부 사항이 궁금하다면 계속 읽어보자.
+
+### For Curious Minds: A Technical Deep Dive
+이 섹션에서는 single-pose 추정 알고리즘에 대해 좀 더 자세히 설명한다. 고차원적 수준에서 프로세스는 다음과 같다
+
+&lt;img src=&quot;https://miro.medium.com/max/1400/1*ey139jykjnBzUqcknAjHGQ.png&quot;/&gt;*Single person pose detector pipeline using PoseNet*
+
+중요한 디테일은 ResNet과 MobileNet을 사용하여 PoseNet을 구성하였다는 것이다. Resnet 모델이 좀 더 높은 정확도를 가지지만 크기가 크고 많은 레이어를 가지며, 페이지의 로딩시간과 추론 시간이 실시간 어플리케이션에는 적합하지 않다. 여기서는 모바일 장치에서 실행되도록 설계된 MobileNet 모델을 사용하였다.
+
+#### Revisiting the Single-pose Estimation Algorithm
+##### Processing Model Inputs: 출력 Strides에 대한 설명
+
+먼저 output strides에 대해 알아봐서 PoseNet 모델의 출력(주로 heatmaps and offset vectors)를 얻는 방법을 보자.
+
+편의성을 위해, PoseNet 모델은 이미지 크기가 변하지 않는다. 이 뜻은 이미지의 축소여부에 관계없이 원본 이미지와 동일한 배율로 포즈 위치를 예측할 수 있다. 즉, 위에서 언급한 output stride를 런타임에 설정하여 성능을 낮추고 더 높은 정확도를 얻을 수 있다.
+
+Output stride는 인풋 이미지 크기를 기준으로 출력 크기를 얼마나 줄일지 결정한다. 이 인자는 모델 출력과 레이어의 크기에 영향을 미친다. 만약 output stride를 높인다면 네트워크안에 레이어와 출력의 해상도가 낮아지고 그에 따라 정확도도 낮아진다. 이 구현에서 output stride는 8,16 또는 32의 값을 가질 수 있다. 다른 말로 32의 값을 가진 output stride는 가장 빠른 퍼포먼스를 보여주지만 낮은 정확도를 보여줄 것이고, 8의 경우 높은 정확도와 낮은 속도를 보여줄 것이다. 우리는 16을 추천한다.
+
+&lt;img src=&quot;https://miro.medium.com/max/1400/1*zXXwR16kprAWLPIOKCrXLw.png&quot;/&gt;*The output stride determines how much we’re scaling down the output relative to the input image size. A higher output stride is faster but results in lower accuracy.*
+
+#### Model Outputs: Heatmaps and Offset Vectors
+PoseNet이 이미지를 처리할 때 리턴되는 값은 자세 키포인트와 대응되는 이미지의 가장 높은 신뢰 영역을 발견하기 위한 offset vector과 이를 포함한 heatmap이다.
+
+&lt;img src=&quot;https://miro.medium.com/max/1400/1*mcaovEoLBt_Aj0lwv1-xtA.png&quot;/&gt;*Each of the 17 pose keypoints returned by PoseNet is associated to one heatmap tensor and one offset vector tensor used to determine the exact location of the keypoint.*
+
+이 출력쌍은 해상도라고 언급되는 높이와 너비를 포함한 3D tensor이다. 해상도는 아래의 공식에 따라 입력 이미지 크기와 output stride에 의해 결정된다.
+
+```
+Resolution = ((InputImageSize - 1) / OutputStride) + 1
+// Example: an input image with a width of 225 pixels and an output
+// stride of 16 results in an output resolution of 15
+// 15 = ((225 - 1) / 16) + 1
+```
+
+#### Heatmaps
+각각의 히트맵은 해상도 * 해상도 * 17의 3D 텐서이다. 17은 PoseNet에서 디텍한 키포인트의 개수이다. 예를들언 이미지 크기가 225이고 output stride가 16이면 15*15*17이 될 것이다. 각각의 3번째 차원(17)은 특정한 키포인트와 대응된다. 히트맵의 각각의 포지션은 신뢰 점수를 가지고, 이것은 해당 히트맵 포인트에서 벡터를 따라 이동할 때 키포인트의 정확한 위치를 예측하는데 사용된다. 
+
+#### Offset Vectors
+각각의 offset vector는 해상도*해상도*34의 3D Tensor이다. 34는 키포인트 * 2를 의미한다. 이미지 크기가 225이고 output stride가 16이면 이것은, 15*15*34가 될 것이다. 히트맵은 키포인트가 어디 위치하는지를 나타내는 근사치이고 offset vectors는 히트맵 포인트에 해당하며 해당 히트 맵 포인트에서 벡터를 따라 이동할 때 키포인트의 정확한 위치를 예측하는데 사용된다. 
+
+#### 모델의 출력으로 부터의 포즈 추정
+이미지가 모델을 통해 공급된 후 몇가지 계산을 수행하여 출력에서 포즈를 추정합니다. 예를 들어, 단일 포즈 추정 알고리즘은 각각 자체 신뢰 점수 및 x, y 위치를 갖는 키포인트 (부품 ID로 색인화 됨)의 배열을 포함하는 포즈 신뢰 점수를 반환합니다.
+
+포즈의 키포인트를 얻는 방법
+1. sigmoid 활성화는 점수를 얻을 수 있는 히트맵에서 수행된다
+scores = heatmap.sigmoid()
+
+2. argmax2d는 각각의 부위에서 가장 높은 점수를 가진 히트맵의 x y 인덱스를 얻기 위하여 키포인트 신뢰 점수에 대해 수행된다. 이는 본질적으로 부위가 존재할 가능성이 가장 높은 곳입니다. 이렇게하면 크기가 17*2인 텐서가 생성되며 각 행은 각 부위의 점수가 가장 높은 y,x 인덱스 값입니다.
+heatmapPositions = scores.argmax(y, x)
+
+3. 각 부품 의 오프셋 벡터 는 해당 부품에 대한 히트 맵의 x 및 y 색인에 해당하는 오프셋에서 x 및 y를 가져 와서 검색됩니다. 그러면 크기가 17x2 인 텐서가 생성되며 각 행은 해당 키포인트의 오프셋 벡터입니다. 예를 들어, 인덱스 k의 부품에서 히트 맵 위치가 y 및 d 인 경우 오프셋 벡터는 다음과 같습니다.
+offsetVector = [offsets.get(y, x, k), offsets.get(y, x, 17 + k)]
+
+4. 키포인트를 얻기 위해 각 부위의 히트맵 x와 y에 output stride를 곱한다음 해당 오프셋 벡터에 추가한다
+keypointPositions = heatmapPositions * outputStride + offsetVectors
+
+5. 마지막으로 각각의 키포인트 신뢰 점수는 히트맵 위치의 신뢰 점수이다. 포즈 신뢰 점수는 키포인트의 점수의 평균이다.
+</description>
+            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/posenet/introduction.html</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/posenet/introduction.html</guid>
             
             
         </item>
         
         <item>
-            <title>개요</title>
+            <title>개요 및 사용법</title>
             <description># DeepLabCut 개요 번역
 &lt;http://www.mousemotorlab.org/deeplabcut&gt;
 &lt;https://github.com/DeepLabCut/DeepLabCut&gt;
@@ -2295,7 +2305,6 @@ DeeperCut을 사용할 때 많은 도움을 받을 수 있는 software package�
 4. 동물 자세 추정에 가장 적합한 data augmentation 방식을 제공해줘서 적은 사진 수로도 꽤나 정확도 높은 모델을 만들어 낼 수 있다.
 5. 추론 결과를 다루는 다양한 함수를 제공한다. 일정 기준으로 필터링 할 수도 있고, 좌표별로 plot 그래프를 그릴 수도 있다.
 
-&lt;img src=&quot;main.png&quot;&gt;
 
 ### 사용 개요
 1. 먼저 형상을 받고 필요한 부분들을 설치해준다. 본인이 anaconda를 이용중이라면 매우 쉽게 설치할 수 있다. 형상을 받고 conda-environments 폴더에 들어간 뒤 conda 환경을 하나 만들어준다.
@@ -2614,268 +2623,484 @@ deeplabcut.plot_trajectories(config_path,[target],filtered = True, showfigures= 
         
         <item>
             <title>개요</title>
-            <description># PoseNet 개요 번역
-#### https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5
-
-### TensorFlow.js를 사용하여 브라우저에서 실시간 인간 자세 추정하기
-
-Google Creative Lab과 협업하여, PoseNet의 TensorFlow.js 버전 릴리즈을 알리게되어 흥분된다. 이 머신 러닝 모델은 브라우저에서 실시간 인간 자세 추정을 가능하게 한다.
-
-*그래서 자세 추정(pose estimation)이 뭔데?* 자세 추정은 컴퓨터 비전분야에서 비디오나 이미지의 사람 모양을 탐지하는 것을 나타낸다. 예를들어 누군가의 팔꿈치가 이미지 어디에 위치하는지 나타낸다. 명백하게 이 기술은 이미지에 있는 사람이 누구인지 인식하지 못한다. 이 알고리즘은 단순하게 몸의 위치 정보를 추정할 뿐이다.
-
-*좋아, 이게 왜 흥미진진한데?* 자세 추정은 다양한 쓰임세가 있다. 우리는 더 많은 개발자가 자신의 고유한 프로젝트에 자세 추정을 실험하고 적용할 수 있기를 바란다. 대부분의 자세 추정 시스템이 오픈 소스지만, 시스템 셋업 또는 카메라 같은 몇가지 특별한 설정이 필요하다. TensorFlow.js에서 PoseNet을 실행하여 웹캠이 달린 데스크탑이나 핸드폰에서 곧바로 체험해 볼 수 있다. TensorFlow.js의 PoseNet은 브라우저에서 동작하기 때문에 사용자의 컴퓨터에 어떠한 포즈 데이터도 남기지 않는다.
-
-이 모델을 사용하는 방법에 대해서 깊게 파고들어가기전에, 이 프로젝트를 가능하게 만들어준 분들에게 감사한다. George Papandreou and Tyler Zhu, Google researchers behind the papers Towards Accurate Multi-person Pose Estimation in the Wild and PersonLab: Person Pose Estimation and Instance Segmentation with a Bottom-Up, Part-Based, Geometric Embedding Model, and Nikhil Thorat and Daniel Smilkov, engineers on the Google Brain team behind the TensorFlow.js library.
-
-### PoseNet 시작하기
-PoseNet은 싱글 포즈와 멀티플 포즈를 추측할 수 있다. 이 의미는 알고리즘의 버전에 따라서 한사람만 추정하거나 여러 사람을 추정할 수 있다는 것이다. 왜 버전이 두 개로 나뉘냐? 한사람의 포즈를 디텍트 하는 것이 더 빠르고 간단하다 그러나 이미지에 한가지의 객체만 있어야 한다. 우리는 싱글-포즈 모델을 먼저 알아볼 것이다. 왜냐하면 더 쉬우니까
-
-고수준의 자세 추정은 두개의 페이즈로 나뉜다.
-1. convolutional neural network를 통해 RGB 이미지가 공급된다
-2. 싱글-포즈 또는 멀티-포즈 디코딩 알고리즘은 다음과 같은 것들을 모델의 아웃풋에서 해독하는데 사용횐다. pose, pose 신뢰 점수, Keypoint 위치 그리고 Keypoint 신뢰 점수
-
-그럼 이러한 키워드가 무엇을 의미하는지 보자
-* pose - 가장 높은 레벨에서 PoseNet은 키포인트의 리스트와 각각의 detect 된 사람의 인스턴스 레벨의 신뢰 점수를 포함한 pose object를 리턴한다
-
-&lt;img src=&quot;https://miro.medium.com/max/1400/1*3bg3CO1b4yxqgrjsGaSwBw.png&quot;/&gt;*PoseNet returns confidence values for each person detected as well as each pose keypoint detected. Image Credit: “Microsoft Coco: Common Objects in Context Dataset”, https://cocodataset.org.*
-
-* Pose 신뢰 점수 - 이것은 자세의 추정에서 신뢰 점수 전체를 나타낸다. 이것의 범위는 0.0에서 1.0 까지이다. 이 점수는 충분한 점수를 얻지 못한 포즈를 없애는데 사용될 수 있다.
-
-* KeyPoint - 코, 오른쪽 귀, 왼쪽 무릎, 오른쪽 발 등등 추정된 사람 자세의 부분. PoseNet은 현재 17개의 keypoint를 디텍할 수 있다. 밑에 그 예가 있다.
-
-&lt;img src=&quot;https://miro.medium.com/max/1400/1*7qDyLpIT-3s4ylULsrnz8A.png&quot;/&gt;
-
-* KeyPoint 신뢰 점수 - 이것은 추정한 keypoint 위치가 정확한지를 나타낸다. 이것의 범위는 0.0 부터 1.0 까지이다. 충분한 점수를 얻지 못한 keypoint를 지우는데 사용할 수 있다.
-
-* Keypoint Position - 인풋 이미지에서 키포인트가 디텍 된 x,y 좌표를 나타낸다.
+            <description># Darknet을 통하여 YoloV4 사용하기
+#### https://github.com/AlexeyAB/darknet
+해당 문서는 위 repository의 darknet이란 프레임워크를 이용하여 CNN 모델 중 하나인 YoloV4를 학습해보고 실행해보는 것을 목적으로 하고있다.
 
 
+YoloV4 알고리즘 간단 설명(작성 중)</description>
+            <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/introduction.html</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/introduction.html</guid>
+            
+            
+        </item>
+        
+        <item>
+            <title>개요 및 사용법</title>
+            <description>## 해당 repository를 통해 개의 신체 자세를 추정하는 모델을 만들었다.
+&lt;https://github.com/ildoonet/tf-pose-estimation.git&gt;
 
-#### Part 1: TensorFlow.js와 PoseNet 라이브러리 임포트하기
-모델의 복잡성을 추상화하고 기능을 사용하기 쉬운 방법으로 캡슐화하는 많은 작업이 진행되었다. PoseNet 프로젝트 설정 방법의 기본 사항을 살펴보자.
+## 그리고 해당 블로그에서 openpose 동작 원리에 대해 많이 공부할 수 있었다. (사람의 자세 추정을 목표로 구현된 소스로 강아지 자세를 추정하려면 신체포인트가 달라서 많은 수정을 해야 한다)
+&lt;https://arvrjourney.com/human-pose-estimation-using-openpose-with-tensorflow-part-2-e78ab9104fc8&gt;
 
-이 라이브러리는 npm으로 설치할 수 있다
+본래 Openpose는 human pose를 추론하는 알고리즘이다. CMU의 오리지날 논문 구현에서는 Caffe를 사용했지만, 해당 프로젝트에서는 텐서플로를 이용해 구현하였다.
+
+---
+
+### Requirements
+* python3
+* tensorflow 1.4.1+
+* opencv3, protobuf, python3-tk
+* slidingwindow
+
+### Install
+1. 해당 repository를 받는다.
+2. pip install -r requirements.txt 를 통해 필요한 패키지를 설치한다
+3. tf_pose/pafprocess 로 이동한다
+4. swig -python -c++ pafprocess.i &amp;&amp; python3 setup.py build_ext --inplace 로 c++ 코드를 python으로 치환해 준다.
+
+
+해당 구현의 경우 인간 자세 Coco dataset의 keypoint 라벨링에 맞게 트레이닝을 하고 추론이 되도록 되어있다. 따라서 인간의 keypoint 개수와 keypoint pair를 강아지에 맞개 개수를 변경해줘야 한다. 또한 repository가 관리된지 조금 오래 지나서 commit이 이루어 지지 않고 다른 버전의 tensorflow와 cuda version에서 동작이 안되는 부분이 있어서 부분부분 수정이 필요하다.
+
+
+수정해야하는 부분을 지금부터 명시하겠다.
+
+
+coco dataset의 인간의 키포인트는 총 18개이다.(background까지 하면 19개).
+내가 정의해준 강아지의 신체포인트는 총 32개이다.(background까지 하면 33개)
+
+## 손으로 먼저 강아지 자세 컨버팅을 진행하였다. 윗부분이 귀/얼굴이고 가장 아래가 꼬리다(점 5개)
+&lt;img src=&quot;dog_point.jpg&quot;&gt;
+
+---
+
+인간 신체포인트를 강아지 신체포인트로 컨버팅하기 위하여 수정해야하는 부분을 지금부터 명시하겠다.
+
 ```
-npm install @tensorflow-models/posenet
+# common.py
+
+LEye = 0
+REye = 1
+Nose = 2
+LMouth = 3
+RMouth = 4
+MouthRow = 5
+Tongue = 6
+LEarStart = 7
+LEarMiddle = 8
+LEarEnd = 9
+REarStart = 10
+REarMiddle = 11
+REarEnd = 12
+Withers = 13
+Prosternum = 14
+LElbow = 15
+LForearm = 16
+LForefoot = 17
+RElbow = 18
+RForearm = 19
+RForefoot = 20
+LStiffle = 21
+LHock = 22
+LHindfoot = 23
+RStiffle = 24
+RHock = 25
+RHindfoot = 26
+TailStart = 27
+TailStartMiddle = 28
+TailMiddle = 29
+TailMiddleEnd = 30
+TailEnd = 31
+Background = 32
+
+# 신체 포인트를 이어주는 pair는 다음과 같다. CocoPairRender는 모두 표시해주고 싶어서 원래 있던 [:-2]를 제외하였다.
+
+CocoPairs = [
+    (2, 0), (0, 7), (7, 8), (8, 9), (2, 1), (1, 10), (10, 11), (11, 12), (2, 5), (5, 3),
+    (5, 4), (5, 6), (2, 13), (2, 14), (13, 15), (14, 15), (15, 16), (16, 17), (13, 18), (14, 18),
+    (18, 19), (19, 20), (13, 27), (14, 27), (27, 21), (21, 22), (22, 23), (27, 24), (24, 25), (25, 26),
+    (27, 28), (28, 29), (29, 30), (30, 31)
+]   # = 34
+CocoPairsRender = CocoPairs
+
+CocoColors = [[255, 0, 0], [255, 85, 0], [255, 170, 0], [255, 255, 0], [255, 255, 0], [255, 255, 0], [255, 255, 0],
+              [170, 255, 0], [170, 255, 0], [170, 255, 0], [85, 255, 0], [85, 255, 0], [85, 255, 0],
+              [0, 255, 0], [0, 255, 85], [0, 255, 170], [0, 255, 170], [0, 255, 170],
+              [0, 255, 255], [0, 255, 255], [0, 255, 255], [0, 170, 255], [0, 170, 255], [0, 170, 255],
+              [0, 85, 255], [0, 85, 255], [0, 85, 255],
+              [0, 0, 255], [0, 0, 255], [0, 0, 255], [0, 0, 255], [0, 0, 255], [85, 0, 255], [170, 0, 255]]
+
+```
+```
+# estimator.py
+
+# 머리 박스 쳐주는 것을 강아지 신체포인트에 맞게 변경
+def get_face_box(self, img_w, img_h, mode=0):
+    _NOSE = CocoPart.Nose.value
+    _NECK = CocoPart.MouthRow.value
+    _REye = CocoPart.REye.value
+    _LEye = CocoPart.LEye.value
+    _REar = CocoPart.REarEnd.value
+    _LEar = CocoPart.LEarEnd.value
+
+# 부분부분 숫자가 18로 되어있는 것들을 32로 바꿔줘야 한다. 사람 신체포인트는 18개, 그리고 정의한 강아지 신체포인트는 32개이기 때문.
+for part_idx in range(32):
+
+# 그리고 heatMat과 pafMat 부분이 19로 되어있는데 해당 부분은 34로 변경해준다
+self.tensor_heatMat = self.tensor_output[:, :, :, :34]
+self.tensor_pafMat = self.tensor_output[:, :, :, 34:]
+self.upsample_size = tf.placeholder(dtype=tf.int32, shape=(2,), name='upsample_size')
+self.tensor_heatMat_up = tf.image.resize_area(self.tensor_output[:, :, :, :34], self.upsample_size,
+                                                      align_corners=False, name='upsample_heatmat')
+self.tensor_pafMat_up = tf.image.resize_area(self.tensor_output[:, :, :, 34:], self.upsample_size,
+                                                     align_corners=False, name='upsample_pafmat')
+if trt_bool is True:
+    smoother = Smoother({'data': self.tensor_heatMat_up}, 25, 3.0, 34)
+else:
+    smoother = Smoother({'data': self.tensor_heatMat_up}, 25, 3.0)
+```
+```
+# network_mobilenet_v2.py
+# 프로젝트 진행에서 backbone 모델은 가장 만만한 mobilenet_v2를 이용하였다. 해당 부분 또한 신체포인트 개수가 다르기에 노드의 개수를 변경해 줘야 한다.
+
+# 38 -&gt; 68으로
+# 19 -&gt; 34로
+```
+```
+# pose_augment.py
+트레이닝 시에 데이터 augmentation을 위해서 변경된 신체포인트를 명시해 주자. 일반적인 경우는 상관없지만 flip같은 경우에 신체포인트 좌우가 바뀌어야 한다
+
+# flip meta
+    flip_list = [CocoPart.REye, CocoPart.LEye, CocoPart.Nose, CocoPart.RMouth, CocoPart.LMouth, CocoPart.MouthRow, CocoPart.Tongue, CocoPart.REarStart,
+                 CocoPart.REarMiddle, CocoPart.REarEnd, CocoPart.LEarStart, CocoPart.LEarMiddle, CocoPart.LEarEnd, CocoPart.Withers,
+                 CocoPart.Prosternum, CocoPart.RElbow, CocoPart.RForearm, CocoPart.RForefoot, CocoPart.LElbow, CocoPart.LForearm, CocoPart.LForefoot,
+                 CocoPart.RStiffle, CocoPart.RHock, CocoPart.RHindfoot, CocoPart.LStiffle, CocoPart.LHock, CocoPart.LHindfoot, CocoPart.TailStart,
+                 CocoPart.TailStartMiddle, CocoPart.TailMiddle, CocoPart.TailMiddleEnd, CocoPart.TailEnd, CocoPart.Background]
+
+```
+```
+# pose_dataset.py
+__coco_parts = 34
+__coco_vecs = list(zip(
+        [3, 1, 8, 9,  3,  2, 11, 12, 3, 6, 6, 6,  3,  3, 14, 15, 16, 17, 14, 15, 19, 20, 14, 15, 28, 22, 23, 28, 25, 26, 28, 29, 30, 31],
+        [1, 8, 9, 10, 2, 11, 12, 13, 6, 4, 5, 7, 14, 15, 16, 16, 17, 18, 19, 19, 20, 21, 28, 28, 22, 23, 24, 25, 26, 27, 29, 30, 31, 32]
+    ))
+
+transform = list(zip(
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+        ))
+
+# 여기서 기본으로 제공되는 데이터셋이 아닌 커스텀 데이터셋 명시해줌
+if is_train:
+    whole_path = os.path.join(path, 'train.json')
+else:
+    whole_path = os.path.join(path, 'test.json')
+    self.img_path = (img_path if img_path is not None else '') + ('/train/' if is_train else '/test/')
+
+# tensorflow 버전에 따라서 수정해줘야 하는 경우도 있음
+ds = MultiThreadMapData(ds, num_thread=16, map_func=read_image_url, buffer_size=1000)
+```
+```
+# train.py
+
+# vectmap_node의 기존 38 -&gt; 68로, heatmap_node는 기존 19 -&gt; 34로
+vectmap_node = tf.placeholder(tf.float32, shape=(args.batchsize, output_h, output_w, 68), name='vectmap')
+heatmap_node = tf.placeholder(tf.float32, shape=(args.batchsize, output_h, output_w, 34), name='heatmap')
+
+그리고 트레이닝이 일정부분 지속 된 후 validation을 해주는 부분이 있다. 여기서 아마 계속 오류가 발생할 것이다. df_valid.reset_state() 시점에서 에러가 날것이다. 그냥 맘 편하게 세션이 시작하기 전에 validation 이미지들을 메모리에 올려놓는 것이 정신건강에 이롭다.
+
+# 해당 코드를 with tf.Session(config=config) as sess: 위로 올려놓자. 그러면 밑에서 validation_cache가 존재하기 때문에 다시 불러오려고 노력하지 않는다.
+for images_test, heatmaps, vectmaps in tqdm(df_valid.get_data()):
+        validation_cache.append((images_test, heatmaps, vectmaps))
+del df_valid
+df_valid = None
+
+pafMat, heatMat = outputMat[:, :, :, 34:], outputMat[:, :, :, :34]
 ```
 
-그리고 모듈을 가져온다
+---
+
+거의 다 왔다. 그리고 openpose 논문을 보면 알겠지만 각 지점의 추정 히트맵 부분을 연결해주는 것이 필요하다. 해당 부분은 속도 때문인지 python으로 구현하지 않고 c++ 코드로 구현이 되어있다. 신체포인트와 페어의 개수가 다르므로 이 부분 또한 변경을 해줘야 한다.
+
+tf_pose/pafprocess (해당 부분을 수정 후에는 swig를 통해 build를 다시 해줘야 한다) 에 존재하는 파일들을 수정해주자
+
+---
+
+
 ```
-import * as posenet from '@tensorflow-models/posenet';
-const net = await posenet.load();
-```
-또는 페이지에 껴넣는다
-```
-&lt;html&gt;
-  &lt;body&gt;
-    &lt;!-- Load TensorFlow.js --&gt;
-    &lt;script src=&quot;https://unpkg.com/@tensorflow/tfjs&quot;&gt;&lt;/script&gt;
-    &lt;!-- Load Posenet --&gt;
-    &lt;script src=&quot;https://unpkg.com/@tensorflow-models/posenet&quot;&gt;
-    &lt;/script&gt;
-    &lt;script type=&quot;text/javascript&quot;&gt;
-      posenet.load().then(function(net) {
-        // posenet model loaded
-      });
-    &lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-```
+# pafprocess.cpp
+if (found == 1) {
+    if (subset[subset_idx1][part_id2] != conns[conn_id].cid2) {
+    subset[subset_idx1][part_id2] = conns[conn_id].cid2;
+    subset[subset_idx1][33] += 1;
+    subset[subset_idx1][32] += peak_infos_line[conns[conn_id].cid2].score + conns[conn_id].score;
+    }
+} else if (found == 2) {
+    int membership=0;
+    for (int subset_id = 0; subset_id &lt; 32; subset_id ++) {
+        if (subset[subset_idx1][subset_id] &gt; 0 &amp;&amp; subset[subset_idx2][subset_id] &gt; 0) {
+            membership = 2;
+        }
+    }
 
-#### Part 2a: single-person 자세 추정
+    if (membership == 0) {
+        for (int subset_id = 0; subset_id &lt; 32; subset_id ++) subset[subset_idx1][subset_id] += (subset[subset_idx2][subset_id] + 1);
 
-&lt;img src=&quot;https://miro.medium.com/max/1026/1*SpWPwprVuNYhXs44iTSODg.png&quot;/&gt;*Example single-person pose estimation algorithm applied to an image. Image Credit: “Microsoft Coco: Common Objects in Context Dataset”, https://cocodataset.org.*
+            subset[subset_idx1][33] += subset[subset_idx2][33];
+            subset[subset_idx1][32] += subset[subset_idx2][32];
+            subset[subset_idx1][32] += conns[conn_id].score;
+            subset.erase(subset.begin() + subset_idx2);
+        } else {
+            subset[subset_idx1][part_id2] = conns[conn_id].cid2;
+            subset[subset_idx1][33] += 1;
+            subset[subset_idx1][32] += peak_infos_line[conns[conn_id].cid2].score + conns[conn_id].score;
+        }
+} else if (found == 0) {
+    vector&lt;float&gt; row(34);
+    for (int i = 0; i &lt; 34; i ++) row[i] = -1;
+    row[part_id1] = conns[conn_id].cid1;
+    row[part_id2] = conns[conn_id].cid2;
+    row[33] = 2;
+    row[32] = peak_infos_line[conns[conn_id].cid1].score + peak_infos_line[conns[conn_id].cid2].score + conns[conn_id].score;
+    subset.push_back(row);
+}
 
-시작하기 전에 single-pose 추정 알고리즘은 2개를 추정하는거보다 간단하고 쉽다. 이것은 이미지나 비디오에서 오직 한 사람만이 이미지의 중앙에 위치할 때 가장 이상적이다. 불이익은 만약 많은 사람이 이미지에 존재한다면 각각의 사람들의 키포인트가 섞여서 추정될 수 있다. 만약 많은 사람이 이미지에 등장한다면 multi-pose 추정 알고리즘을 사용해라
 
-single-pose 추정 알고리즘의 inputs을 알아보자
-* Input image element - 자세를 추정할 이미지를 가지고 있는 html 요소이다. 보통 img나 video tag를 가지고 있다. 그리고 이미지나 비디오는 사각형 형태여야 한다.
-
-* Image scale factor - 0.2부터 1까지의 값을 가지고 기본값은 0.5이다. 네트워크를 통해 이미지를 공급하기 전에 이 값을 낮게 설정하면 이미지를 축소하고 정확도를 포기하여 네트워크의 속도를 높일 수 있다.
-
-* Flip horizontal - 기본값은 false이다. 만약 포즈를 뒤집거나 대칭시켜야 하는 경우 이 값을 true로 설정하면 된다.
-
-* Output stride - 32,16 또는 8이어야 하고 기본값은 16이다. 내부적으로 이 파라메터는 신경망 안에 레이어의 높이와 넓이에 영향을 준다. 고차원적인 수준에서는 이것은 정확도와 속도에 영향을 준다. 저차원적인 수준에서는 출력값이 낮을수록 속도는 빨라지지만 정확도는 낮아진다.
-
-이제 single-pose 추정 알고리즘의 아웃풋을 알아보자.
-* 포즈 신뢰 점수와 17개의 키포인트를 가진 배열
-* 각 키포인트에는 키포인트 위치 및 키포인트 신뢰 점수가 포함된다.
-
-해당 코드 블락은 single-pose 추정 알고리즘을 사용하는 방법이다.
-```
-const imageScaleFactor = 0.50;
-const flipHorizontal = false;
-const outputStride = 16;
-const imageElement = document.getElementById('cat');
-// load the posenet model
-const net = await posenet.load();
-const pose = await net.estimateSinglePose(imageElement, scaleFactor, flipHorizontal, outputStride);
-```
-다음과 같이 출력이 나온다
-```
-{
-  &quot;score&quot;: 0.32371445304906,
-  &quot;keypoints&quot;: [
-    { // nose
-      &quot;position&quot;: {
-        &quot;x&quot;: 301.42237830162,
-        &quot;y&quot;: 177.69162777066
-      },
-      &quot;score&quot;: 0.99799561500549
-    },
-    { // left eye
-      &quot;position&quot;: {
-        &quot;x&quot;: 326.05302262306,
-        &quot;y&quot;: 122.9596464932
-      },
-      &quot;score&quot;: 0.99766051769257
-    },
-    { // right eye
-      &quot;position&quot;: {
-        &quot;x&quot;: 258.72196650505,
-        &quot;y&quot;: 127.51624706388
-      },
-      &quot;score&quot;: 0.99926537275314
-    },
-    ...
-  ]
+float get_score(int human_id) {
+    return subset[human_id][32] / subset[human_id][33];
 }
 ```
-#### Part 2b: Multi-person 자세 추정
-
-&lt;img src=&quot;https://miro.medium.com/max/1026/1*EZOqbMLkIwBgyxrKLuQTHA.png&quot;/&gt;*Example multi-person pose estimation algorithm applied to an image. Image Credit: “Microsoft Coco: Common Objects in Context Dataset”, https://cocodataset.org*
-
-multi-person 자세 추정 알고리즘은 이미지에서 많은 사람과 포즈를 추정할 수 있다. 이것은 single-pose 알고리즘보다 느리지만 사진에 많은 사람들이 있는 경우 이점을 가지고 있다. 그리고 잘못된 자세를 추정하지 않을 확률이 좀 더 높다. 이런 이유로, 한사람의 자세를 디텍해야 하는 경우에도 이 알고리즘을 쓰는게 바람직 할 수도 있다.
-
-게자다가, 이 알고리즘의 특징은 사람수에 따라서 성능이 영향을 받지 않는다는 것이다. 감지를 해야할 사람이 15명이든 5명이든 같은 계산 시간이 걸린다.
-
-inputs을 봐보자
-* Input image element - single-pose 추정과 같다
-* Image scale factor - single-pose 추정과 같다
-* Flip horizontal - single-pose 추정과 같다
-* Output stride - single-pose 추정과 같다
-* Maximum pose detections - Integer이고 기본값은 5이다. 디텍을 할 최대 포즈 개수이다.
-* Pose confidence score threshold - 0.0 ~ 0.1값이고 기본값은 0.5이다. 고차원적 수준에서 이것은 반환되는 포즈의 신뢰 점수를 제어한다
-* Non-maximum suppression(NMS) radius - 픽셀의 숫자이다. 고차원적 수준에서는 반환되는 포즈 사이의 최소 거리를 제어한다. 이 값의 기본값은 20이며 대부분의 경우에 괜찮다. 더 작은 정확도의 포즈를 나타내거나 숨기거나 할 때 사용될 수 있지만, 자세 신뢰 점수가 충분히 좋지 않을 때 사용하기에 좋다
-
-출력값을 알아보자
-* 자세의 배열을 내는 추정치
-* 각 자세에는 single-pose 추정 알고리즘에서 설명한 것과 동일한 정보가 포함되어있다.
-
-이 코드 블록은 multiple-person 추정 알고리즘을 사용하는 방법을 부여준다
 ```
-const imageScaleFactor = 0.50;
-const flipHorizontal = false;
-const outputStride = 16;
-// get up to 5 poses
-const maxPoseDetections = 5;
-// minimum confidence of the root part of a pose
-const scoreThreshold = 0.5;
-// minimum distance in pixels between the root parts of poses
-const nmsRadius = 20;
-const imageElement = document.getElementById('cat');
-// load posenet
-const net = await posenet.load();
-const poses = await net.estimateMultiplePoses(
-  imageElement, imageScaleFactor, flipHorizontal, outputStride,    
-  maxPoseDetections, scoreThreshold, nmsRadius);
+# pafprocess.h
+const float THRESH_HUMAN_SCORE = 0.1;
+const int NUM_PART = 32;
+
+const int STEP_PAF = 10;
+
+const int COCOPAIRS_SIZE = 34;
+const int COCOPAIRS_NET[COCOPAIRS_SIZE][2] = {
+    {0, 1}, {2, 3}, {4, 5}, {6, 7}, {8, 9}, {10, 11}, {12, 13}, {14, 15}, {16, 17}, {18, 19},
+    {20, 21}, {22, 23}, {24, 25}, {26, 27}, {28, 29}, {30, 31}, {32, 33}, {34, 35}, {36, 37}, {38, 39},
+    {40, 41}, {42, 43}, {44, 45}, {46, 47}, {48, 49}, {50, 51}, {52, 53}, {54, 55}, {56, 57}, {58, 59},
+    {60, 61}, {62, 63}, {64, 65}, {66, 67}
+};
+
+const int COCOPAIRS[COCOPAIRS_SIZE][2] = {
+    {2, 0}, {0, 7}, {7, 8}, {8, 9}, {2, 1}, {1, 10}, {10, 11}, {11, 12}, {2, 5}, {5, 3},
+    {5, 4}, {5, 6}, {2, 13}, {2, 14}, {13, 15}, {14, 15}, {15, 16}, {16, 17}, {13, 18}, {14, 18},
+    {18, 19}, {19, 20}, {13, 27}, {14, 27}, {27, 21}, {21, 22}, {22, 23}, {27, 24}, {24, 25}, {25, 26},
+    {27, 28}, {28, 29}, {29, 30}, {30, 31}
+};
 ```
 
-출력값은 다음과 같다
-```
-// array of poses/persons
-[ 
-  { // pose #1
-    &quot;score&quot;: 0.42985695206067,
-    &quot;keypoints&quot;: [
-      { // nose
-        &quot;position&quot;: {
-          &quot;x&quot;: 126.09371757507,
-          &quot;y&quot;: 97.861720561981
-         },
-        &quot;score&quot;: 0.99710708856583
-      },
-      ... 
-    ]
-  },
-  { // pose #2
-    &quot;score&quot;: 0.13461434583673,
-    &quot;keypositions&quot;: [
-      { // nose
-        &quot;position&quot;: {
-          &quot;x&quot;: 116.58444058895,
-          &quot;y&quot;: 99.772533416748
-        },
-      &quot;score&quot;: 0.9978438615799
-      },
-      ...
-    ]
-  },
-  ... 
+---
+
+여기까지가 수정을 해줘야하는 소스코드 부분이었다.
+
+## 그리고 Custom Dataset을 COCO Dataset 형태로 컨터팅해서 트레이닝 할 준비를 하자. 해당 코드는 다음과 같다.
+
+```python
+import os
+import fnmatch
+import pandas as pd
+import math
+import json
+
+base_folder = '/home/eastrain/tf-pose/data/point_data'
+train_data = base_folder + '/train'
+test_data = base_folder  + '/test'
+
+train_json_file = base_folder + '/annotations/train.json'
+test_json_file  = base_folder + '/annotations/test.json'
+
+key_points = [
+    'eye-left-open',
+    'eye-left-close',
+    'eye-right-open',
+    'eye-right-close',
+    'nose',
+    'mouth-left',
+    'mouth-right',
+    'mouth-low',
+    'tongue',
+    'ear-left-start',
+    'ear-left-middle',
+    'ear-left-end',
+    'ear-right-start',
+    'ear-right-middle',
+    'ear-right-end',
+    'withers',
+    'prosternum',
+    'elbow-left',
+    'forearm-left',
+    'forefoot-left',
+    'elbow-right',
+    'forearm-right',
+    'forefoot-right',
+    'stiffle-left',
+    'hock-left',
+    'hindfoot-left',
+    'stiffle-right',
+    'hock-right',
+    'hindfoot-right',
+    'tail-start',
+    'tail-start-middle',
+    'tail-middle',
+    'tail-middle-end',
+    'tail-end'
 ]
+
+def get_all_csv_files(path):
+    csv_files = []
+    for (path, directory, files) in os.walk(path):
+        for filename in files:
+            file_abs_path = os.path.join(path, filename)
+            if fnmatch.fnmatch(filename, &quot;*-p.csv&quot;):
+                csv_files.append(str(file_abs_path))
+    return  csv_files
+
+def make_json_file(filename, json_data):
+    with open(filename, 'w', encoding='UTF8') as fp:
+        json.dump(json_data, fp, ensure_ascii=False)
+
+def make_base_json():
+    return {
+        &quot;images&quot;: [],
+        &quot;annotations&quot;: [],
+        &quot;categories&quot;: [
+            {
+                &quot;supercategory&quot;: &quot;dog&quot;,
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;dog&quot;,
+                &quot;keypoints&quot;: [
+                    &quot;eye-left&quot;,
+                    &quot;eye-right&quot;
+                ] + key_points[4:],
+            }
+        ]
+    
+}
+
+def make_eye_point(csv, dog_idx, keypoints):
+    num_keypoints = 0
+    #### Eye Left ####
+    eye_left_exist = False
+    if not pd.isnull(csv[1][dog_idx]):
+        keypoints[0] = int(csv[1][dog_idx])
+        eye_left_exist = True
+    elif not pd.isnull(csv[3][dog_idx]):
+        keypoints[0] = int(csv[3][dog_idx])
+        eye_left_exist = True
+            
+    if not pd.isnull(csv[2][dog_idx]):
+        keypoints[1] = int(csv[2][dog_idx])
+        eye_left_exist = True
+    elif not pd.isnull(csv[4][dog_idx]):
+        keypoints[1] = int(csv[4][dog_idx])
+        eye_left_exist = True
+                
+    if eye_left_exist is True:
+        keypoints[2] = 2
+        num_keypoints = num_keypoints + 1
+                
+    #### Eye Right ####
+    eye_right_exist = False
+    if not pd.isnull(csv[5][dog_idx]):
+        keypoints[3] = int(csv[5][dog_idx])
+        eye_right_exist = True
+    elif not pd.isnull(csv[7][dog_idx]):
+        keypoints[3] = int(csv[7][dog_idx])
+        eye_right_exist = True
+            
+    if not pd.isnull(csv[6][dog_idx]):
+        keypoints[4] = int(csv[6][dog_idx])
+        eye_right_exist = True
+    elif not pd.isnull(csv[8][dog_idx]):
+        keypoints[4] = int(csv[8][dog_idx])
+        eye_right_exist = True
+                
+    if eye_right_exist is True:
+        keypoints[5] = 2
+        num_keypoints = num_keypoints + 1
+        
+    return num_keypoints
+
+def get_pure_file_name(file_name):
+    pure_file = os.path.basename(file_name)
+    pure_file = pure_file.split('-p.csv')[0]
+
+    if os.path.isfile(file_name.split(os.path.basename(file_name))[0] + pure_file + &quot;.png&quot;):
+        return pure_file + &quot;.png&quot;
+    elif os.path.isfile(file_name.split(os.path.basename(file_name))[0] + pure_file + &quot;.jpg&quot;):
+        return pure_file + &quot;.jpg&quot;
+    else:
+        print(&quot;something wrong&quot;)
+        print(file_name)
+
+def make_coco_dataset(csv_files, json_file):
+    cols = list(range(0, len(key_points)*2 + 1))
+    for id, file in enumerate(csv_files):
+        id = id + 1
+        csv = pd.read_csv(file, header=None, usecols=cols, names=cols)
+        image = {}
+        image['file_name'] = get_pure_file_name(file)
+        image['width'] = int(csv[1][0])
+        image['height'] = int(csv[2][0])
+        image['id'] = id
+        json_file['images'].append(image)
+        for idx in range(0, int(csv[3][0])):
+            annotation = {}
+            dog_idx = idx + 3
+            keypoints = [0] * 96
+            num_keypoints = make_eye_point(csv, dog_idx, keypoints)
+            help_idx = 0
+            
+            for point_idx in range(9, len(cols)):
+                point = csv[point_idx][dog_idx]
+                keypoint_idx = point_idx-(3-math.floor(help_idx)) 
+                if not pd.isnull(point):
+                    keypoints[keypoint_idx] = int(point)
+                    if help_idx-int(help_idx) == 0.5:
+                        keypoints[keypoint_idx+1] = 2
+                        num_keypoints = num_keypoints + 1
+                help_idx = help_idx + 0.5
+            
+            annotation['num_keypoints'] = num_keypoints
+            annotation['keypoints'] = keypoints
+            annotation['image_id'] = id
+            annotation['category_id'] = 1
+            annotation['id'] = id + 999999
+            json_file['annotations'].append(annotation)
+
+train_json = make_base_json()
+train_csv_files = get_all_csv_files(train_data)
+make_coco_dataset(train_csv_files, train_json)
+make_json_file(train_json_file, train_json)
+
+test_json = make_base_json()
+test_csv_files = get_all_csv_files(test_data)
+make_coco_dataset(test_csv_files, test_json)
+make_json_file(test_json_file, test_json)
 ```
 
-여기 까지가 PoseNet 데모를 시작하기에 충분하지만 모델 및 구현의 세부 사항이 궁금하다면 계속 읽어보자.
+---
 
-### For Curious Minds: A Technical Deep Dive
-이 섹션에서는 single-pose 추정 알고리즘에 대해 좀 더 자세히 설명한다. 고차원적 수준에서 프로세스는 다음과 같다
-
-&lt;img src=&quot;https://miro.medium.com/max/1400/1*ey139jykjnBzUqcknAjHGQ.png&quot;/&gt;*Single person pose detector pipeline using PoseNet*
-
-중요한 디테일은 ResNet과 MobileNet을 사용하여 PoseNet을 구성하였다는 것이다. Resnet 모델이 좀 더 높은 정확도를 가지지만 크기가 크고 많은 레이어를 가지며, 페이지의 로딩시간과 추론 시간이 실시간 어플리케이션에는 적합하지 않다. 여기서는 모바일 장치에서 실행되도록 설계된 MobileNet 모델을 사용하였다.
-
-#### Revisiting the Single-pose Estimation Algorithm
-##### Processing Model Inputs: 출력 Strides에 대한 설명
-
-먼저 output strides에 대해 알아봐서 PoseNet 모델의 출력(주로 heatmaps and offset vectors)를 얻는 방법을 보자.
-
-편의성을 위해, PoseNet 모델은 이미지 크기가 변하지 않는다. 이 뜻은 이미지의 축소여부에 관계없이 원본 이미지와 동일한 배율로 포즈 위치를 예측할 수 있다. 즉, 위에서 언급한 output stride를 런타임에 설정하여 성능을 낮추고 더 높은 정확도를 얻을 수 있다.
-
-Output stride는 인풋 이미지 크기를 기준으로 출력 크기를 얼마나 줄일지 결정한다. 이 인자는 모델 출력과 레이어의 크기에 영향을 미친다. 만약 output stride를 높인다면 네트워크안에 레이어와 출력의 해상도가 낮아지고 그에 따라 정확도도 낮아진다. 이 구현에서 output stride는 8,16 또는 32의 값을 가질 수 있다. 다른 말로 32의 값을 가진 output stride는 가장 빠른 퍼포먼스를 보여주지만 낮은 정확도를 보여줄 것이고, 8의 경우 높은 정확도와 낮은 속도를 보여줄 것이다. 우리는 16을 추천한다.
-
-&lt;img src=&quot;https://miro.medium.com/max/1400/1*zXXwR16kprAWLPIOKCrXLw.png&quot;/&gt;*The output stride determines how much we’re scaling down the output relative to the input image size. A higher output stride is faster but results in lower accuracy.*
-
-#### Model Outputs: Heatmaps and Offset Vectors
-PoseNet이 이미지를 처리할 때 리턴되는 값은 자세 키포인트와 대응되는 이미지의 가장 높은 신뢰 영역을 발견하기 위한 offset vector과 이를 포함한 heatmap이다.
-
-&lt;img src=&quot;https://miro.medium.com/max/1400/1*mcaovEoLBt_Aj0lwv1-xtA.png&quot;/&gt;*Each of the 17 pose keypoints returned by PoseNet is associated to one heatmap tensor and one offset vector tensor used to determine the exact location of the keypoint.*
-
-이 출력쌍은 해상도라고 언급되는 높이와 너비를 포함한 3D tensor이다. 해상도는 아래의 공식에 따라 입력 이미지 크기와 output stride에 의해 결정된다.
+## 데이터 셋이 준비되었으면 학습을 진행하고 검증한다.
 
 ```
-Resolution = ((InputImageSize - 1) / OutputStride) + 1
-// Example: an input image with a width of 225 pixels and an output
-// stride of 16 results in an output resolution of 15
-// 15 = ((225 - 1) / 16) + 1
+$ python tf_pose/train.py --datapath=/home/eastrain/tf-pose/data/point_data/annotations --imgpath=/home/eastrain/tf-pose/data/point_data/ --batchsize=16 --gpus=2 --lr=0.0008 --tag=20200911
 ```
 
-#### Heatmaps
-각각의 히트맵은 해상도 * 해상도 * 17의 3D 텐서이다. 17은 PoseNet에서 디텍한 키포인트의 개수이다. 예를들언 이미지 크기가 225이고 output stride가 16이면 15*15*17이 될 것이다. 각각의 3번째 차원(17)은 특정한 키포인트와 대응된다. 히트맵의 각각의 포지션은 신뢰 점수를 가지고, 이것은 해당 히트맵 포인트에서 벡터를 따라 이동할 때 키포인트의 정확한 위치를 예측하는데 사용된다. 
+&lt;img src=&quot;run.png&quot;&gt;
 
-#### Offset Vectors
-각각의 offset vector는 해상도*해상도*34의 3D Tensor이다. 34는 키포인트 * 2를 의미한다. 이미지 크기가 225이고 output stride가 16이면 이것은, 15*15*34가 될 것이다. 히트맵은 키포인트가 어디 위치하는지를 나타내는 근사치이고 offset vectors는 히트맵 포인트에 해당하며 해당 히트 맵 포인트에서 벡터를 따라 이동할 때 키포인트의 정확한 위치를 예측하는데 사용된다. 
-
-#### 모델의 출력으로 부터의 포즈 추정
-이미지가 모델을 통해 공급된 후 몇가지 계산을 수행하여 출력에서 포즈를 추정합니다. 예를 들어, 단일 포즈 추정 알고리즘은 각각 자체 신뢰 점수 및 x, y 위치를 갖는 키포인트 (부품 ID로 색인화 됨)의 배열을 포함하는 포즈 신뢰 점수를 반환합니다.
-
-포즈의 키포인트를 얻는 방법
-1. sigmoid 활성화는 점수를 얻을 수 있는 히트맵에서 수행된다
-scores = heatmap.sigmoid()
-
-2. argmax2d는 각각의 부위에서 가장 높은 점수를 가진 히트맵의 x y 인덱스를 얻기 위하여 키포인트 신뢰 점수에 대해 수행된다. 이는 본질적으로 부위가 존재할 가능성이 가장 높은 곳입니다. 이렇게하면 크기가 17*2인 텐서가 생성되며 각 행은 각 부위의 점수가 가장 높은 y,x 인덱스 값입니다.
-heatmapPositions = scores.argmax(y, x)
-
-3. 각 부품 의 오프셋 벡터 는 해당 부품에 대한 히트 맵의 x 및 y 색인에 해당하는 오프셋에서 x 및 y를 가져 와서 검색됩니다. 그러면 크기가 17x2 인 텐서가 생성되며 각 행은 해당 키포인트의 오프셋 벡터입니다. 예를 들어, 인덱스 k의 부품에서 히트 맵 위치가 y 및 d 인 경우 오프셋 벡터는 다음과 같습니다.
-offsetVector = [offsets.get(y, x, k), offsets.get(y, x, 17 + k)]
-
-4. 키포인트를 얻기 위해 각 부위의 히트맵 x와 y에 output stride를 곱한다음 해당 오프셋 벡터에 추가한다
-keypointPositions = heatmapPositions * outputStride + offsetVectors
-
-5. 마지막으로 각각의 키포인트 신뢰 점수는 히트맵 위치의 신뢰 점수이다. 포즈 신뢰 점수는 키포인트의 점수의 평균이다.
+&lt;img src=&quot;dog1.png&quot;&gt;
+&lt;img src=&quot;dog2.png&quot;&gt;
 </description>
-            <pubDate>Thu, 23 Apr 2020 00:00:00 +0900</pubDate>
-            <link>https://east-rain.github.io/docs/Deep%20Learning/posenet/introduction.html</link>
-            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/posenet/introduction.html</guid>
+            <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
+            <link>https://east-rain.github.io/docs/Deep%20Learning/Openpose/openpose.html</link>
+            <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/Openpose/openpose.html</guid>
             
             
         </item>
@@ -2965,85 +3190,7 @@ AdaGrad는 과거의 기울기를 제곱하여 계속 더해간다. 그래서 �
         
         <item>
             <title>트레이닝</title>
-            <description># 환경설정
-Ubuntu 16.04 환경에서 작업하였다.
-
-### Requirements
-```
-CMake &gt;= 3.12
-
-$ sudo apt install cmake
-```
-```
-CUDA &gt;= 10.0
-
-network 형태로 설치(이 형태로 하면 패치를 받을 필요가 없어서 편하다)
-$ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-ubuntu1604.pin
-$ sudo mv cuda-ubuntu1604.pin /etc/apt/preferences.d/cuda-repository-pin-600
-$ sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
-$ sudo add-apt-repository &quot;deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/ /&quot;
-$ sudo apt-get update
-$ sudo apt-get -y install cuda
-```
-```
-OpenCV &gt;= 2.4
-
-$ sudo apt-get install build-essential cmake pkg-config libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev libavcodec-dev libavformat-dev libswscale-dev libxvidcore-dev libx264-dev libxine2-dev libv4l-dev v4l-utils libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libqt4-dev mesa-utils libgl1-mesa-dri libqt4-opengl-dev libatlas-base-dev gfortran libeigen3-dev python2.7-dev python3-dev python-numpy python3-numpy
-임시 폴더 생성
-$ wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.2.0.zip
-$ unzip opencv.zip
-$ wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.2.0.zip
-$ unzip opencv_contrib.zip
-$ cd opencv-3.2.0
-$ mkdir build
-$ cd build
-$ make -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=OFF -D WITH_IPP=OFF -D WITH_1394=OFF -D BUILD_WITH_DEBUG_INFO=OFF -D BUILD_DOCS=OFF -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D ENABLE_NEON=ON -D WITH_QT=ON -D WITH_OPENGL=ON -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.2.0/modules -D WITH_V4L=ON -D WITH_FFMPEG=ON -D WITH_XINE=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D PYTHON_INCLUDE_DIR=/usr/include/python2.7 -D PYTHON_INCLUDE_DIR2=/usr/include/x86_64-linux-gnu/python2.7 -D PYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython2.7.so ../
-$ make -j8 (cpu 코어 수에 따라서 숫자 조절)
-$ sudo make install
-설치확인
-$ pkg-config --modversion opencv
-$ pkg-config --libs --cflags opencv
-```
-&lt;img src=&quot;opencv.png&quot;/&gt;
-
-```
-cuDNN &gt;= 7.0
-
-1. https://developer.nvidia.com/cudnn 이동
-2. Download cuDNN 클릭
-3. Login
-4. https://developer.nvidia.com/rdp/cudnn-archive 이동
-5. Download cuDNN v7.6.5 (November 18th, 2019), for CUDA 10.2 선택
-6. cuDNN Runtime Library for Ubuntu16.04 (Deb) 다운로드
-7. sudo dpkg -i 다운받은deb파일
-```
-
-### darknet 설치
-위의 requirements가 모두 설치되었다는 가정하에 진행한다.
-
-* https://github.com/AlexeyAB/darknet.git 받고 해당 폴더 이동
-* Makefile 열어서 수정(아래 그림 파일 참조)
-&lt;img src=&quot;makefile.png&quot;/&gt;
-본인의 경우에는 현재 PC의 상황에 맞게 다음과 같이 설정하였다.
-```
-GPU=1
-CUDNN=1
-CUDNN_HALF=0
-OPENCV=1
-AVX=0
-OPENMP=0
-LIBSO=1
-ZED_CAMERA=0
-ZED_CAMERA_v2_8=0
-```
-* $ make 명령어를 통해 컴파일
-* 컴파일 도중 NVCC 에러가 날 수도 있다. 이때는 다시 Makefile을 열어서 본인의 nvcc 경로를 변경해줘야한다.
-일반적으로 위에서 cuda를 제대로 설치했으면 /usr/local/cuda/bin/nvcc 일 것이다.
-* ./darknet detector test ./cfg/coco.data ./cfg/yolov4.cfg ./yolov4.weights 명령어를 통해 올바르게 컴파일이 되었는지 확인을 해본다. 보통 makefile이나 실행 도중 에러가 나면 에러메시지를 잘 확인해 보길 바란다. cuda version 문제 또는 cudnn version문제 또는 opencv 관련 문제일 것이다.
-
-
-
-</description>
+            <description># 작성 중</description>
             <pubDate>Wed, 28 Oct 2020 00:00:00 +0900</pubDate>
             <link>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/training.html</link>
             <guid isPermaLink="true">https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/training.html</guid>
