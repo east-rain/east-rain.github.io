@@ -8,7 +8,7 @@ date: 2020-10-28
 
 <https://github.com/facebookresearch/faiss.git>{: target="_blank"}
 
-facebook에서 공개한 Faiss를 이용하여 이미지 유사도를 검색하였다. 
+facebook에서 공개한 Faiss를 이용하여 이미지 유사도를 검색하였다. 6천여 장의 이미지에 대해서 백터맵을 만들고 유사도를 검색하는데 실시간이라고 체감될 만큼 빠른 속도로 검색이 가능하다.
 
 ### Faiss란?
 Faiss는 밀도가 높은 벡터의 효율적인 유사성 검색 및 클러스터링을위한 라이브러리이다. 여기에는 RAM에 맞지 않을 수있는 최대 크기의 벡터 세트에서 검색하는 알고리즘이 포함되어 있다. 평가 및 매개 변수 조정을위한 지원 코드도 포함되어 있다. Python / numpy를 위한 완전한 래퍼와 함께 C ++로 작성되었다. 가장 유용한 알고리즘 중 일부는 GPU에서 구현된다. Facebook AI Research에서 개발했다.
