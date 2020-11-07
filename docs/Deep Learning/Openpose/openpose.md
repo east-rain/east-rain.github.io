@@ -8,10 +8,10 @@ date: 2020-10-28
 ---
 
 ## 해당 repository를 통해 개의 신체 자세를 추정하는 모델을 만들었다.
-<https://github.com/ildoonet/tf-pose-estimation.git>
+<https://github.com/ildoonet/tf-pose-estimation.git>{: target="_blank"}
 
 ## 그리고 해당 블로그에서 openpose 동작 원리에 대해 많이 공부할 수 있었다. (사람의 자세 추정을 목표로 구현된 소스로 강아지 자세를 추정하려면 신체포인트가 달라서 많은 수정을 해야 한다)
-<https://arvrjourney.com/human-pose-estimation-using-openpose-with-tensorflow-part-2-e78ab9104fc8>
+<https://arvrjourney.com/human-pose-estimation-using-openpose-with-tensorflow-part-2-e78ab9104fc8>{: target="_blank"}
 
 본래 Openpose는 human pose를 추론하는 알고리즘이다. CMU의 오리지날 논문 구현에서는 Caffe를 사용했지만, 해당 프로젝트에서는 텐서플로를 이용해 구현하였다.
 

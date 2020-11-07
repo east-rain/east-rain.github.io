@@ -15,4 +15,4 @@ date: 2020-04-23
 
 ### 다양한 기술에 관심이 많고 도큐먼트로 근본있게 배우기를 좋아합니다
 ### email : kdwooa@gmail.com
-### linkedIn : <http://linkedin.com/in/dongwoo-kwak-b5782115a>
+### linkedIn : <http://linkedin.com/in/dongwoo-kwak-b5782115a>{: target="_blank"}

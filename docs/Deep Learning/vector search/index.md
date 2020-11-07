@@ -6,12 +6,12 @@ nav_order: 104
 date: 2020-10-28
 ---
 
-https://github.com/facebookresearch/faiss.git
+<https://github.com/facebookresearch/faiss.git>{: target="_blank"}
 
 facebook에서 공개한 Faiss를 이용하여 이미지 유사도를 검색하였다. 
 
 ### Faiss란?
-Faiss는 밀도가 높은 벡터의 효율적인 유사성 검색 및 클러스터링을위한 라이브러리입니다. 여기에는 RAM에 맞지 않을 수있는 최대 크기의 벡터 세트에서 검색하는 알고리즘이 포함되어 있습니다. 평가 및 매개 변수 조정을위한 지원 코드도 포함되어 있습니다. Python / numpy를 위한 완전한 래퍼와 함께 C ++로 작성되었습니다. 가장 유용한 알고리즘 중 일부는 GPU에서 구현됩니다. Facebook AI Research에서 개발했습니다.
+Faiss는 밀도가 높은 벡터의 효율적인 유사성 검색 및 클러스터링을위한 라이브러리이다. 여기에는 RAM에 맞지 않을 수있는 최대 크기의 벡터 세트에서 검색하는 알고리즘이 포함되어 있다. 평가 및 매개 변수 조정을위한 지원 코드도 포함되어 있다. Python / numpy를 위한 완전한 래퍼와 함께 C ++로 작성되었다. 가장 유용한 알고리즘 중 일부는 GPU에서 구현된다. Facebook AI Research에서 개발했다.
 
 
 다양한 백터 유사도 검색 알고리즘들을 구현해놓고 쓰기 쉽게 말아 놓았다. 그 중에서 HNSW(Hierarchical Navigable Small World graphs)를 이용해서 이미지 유사도를 검색하였다.
@@ -71,9 +71,13 @@ if __name__ == '__main__':
     main()
 ```
 
+---
+
 해당 코드를 통해 백터 그래프를 그리면 다음과 같이 3개의 파일이 생성된다. fnames.txt, fvecs.bin, fvecs.bin.hnsw.index
 
 그리고 이제 이 파일들을 이용해서 유사도를 검색할 수 있다.
+
+---
 
 ```
 import os

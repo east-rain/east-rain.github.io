@@ -8,8 +8,8 @@ date: 2020-04-23
 ---
 
 # DeepLabCut 개요 번역
-<http://www.mousemotorlab.org/deeplabcut>
-<https://github.com/DeepLabCut/DeepLabCut>
+<http://www.mousemotorlab.org/deeplabcut>{: target="_blank"}
+<https://github.com/DeepLabCut/DeepLabCut>{: target="_blank"}
 
 #### DeepLabCut : 동물 포즈 추정을 위한 소프트웨어 패키지
 
@@ -168,8 +168,11 @@ skeleton:
 - - tail-middle-end
   - tail-end
 ```
+---
 
 config 파일을 내 입맛에 맞게 수정을 한 뒤 다음 코드를 이용해서 데이터 형식을 맞추고 트레이닝을 진행하였다.
+
+---
 
 ```python
 import os
