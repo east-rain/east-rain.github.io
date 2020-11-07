@@ -66,7 +66,7 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Deep%20Learning/posenet/</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/Openpose/</loc>
     </url>
     
     
@@ -74,7 +74,15 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Programming/</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/vector%20search/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/posenet/</loc>
     </url>
     
     
@@ -90,7 +98,7 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Deep%20Learning/Openpose/</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/</loc>
     </url>
     
     
@@ -98,7 +106,7 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Deep%20Learning/deeplabcut/</loc>
+        <loc>https://east-rain.github.io/docs/Programming/</loc>
     </url>
     
     
@@ -130,14 +138,6 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Deep%20Learning/vector%20search/</loc>
-    </url>
-    
-    
-    
-    
-    
-    <url>
         <loc>https://east-rain.github.io/docs/Deep%20Learning/tensorflow%20tutorial/install_tensorflow.html</loc>
     </url>
     
@@ -146,7 +146,7 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/introduction.html</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/posenet/introduction.html</loc>
     </url>
     
     
@@ -162,12 +162,20 @@
     
     
     <url>
-        <loc>https://east-rain.github.io/docs/Deep%20Learning/posenet/introduction.html</loc>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/Yolo(darknet)/introduction.html</loc>
     </url>
     
     
     
     
+    
+    
+    
+    
+    
+    <url>
+        <loc>https://east-rain.github.io/docs/Deep%20Learning/Openpose/openpose.html</loc>
+    </url>
     
     
     

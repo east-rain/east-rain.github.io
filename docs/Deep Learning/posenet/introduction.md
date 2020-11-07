@@ -3,7 +3,7 @@ layout: default
 title: 개요
 parent: PoseNet
 grand_parent: Deep Learning
-nav_order: 100
+nav_order: 198
 date: 2020-04-23
 ---
 

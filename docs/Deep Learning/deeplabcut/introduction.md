@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 개요
+title: 개요 및 사용법
 parent: DeepLabCut
 grand_parent: Deep Learning
 nav_order: 100
@@ -29,7 +29,6 @@ DeeperCut을 사용할 때 많은 도움을 받을 수 있는 software package�
 4. 동물 자세 추정에 가장 적합한 data augmentation 방식을 제공해줘서 적은 사진 수로도 꽤나 정확도 높은 모델을 만들어 낼 수 있다.
 5. 추론 결과를 다루는 다양한 함수를 제공한다. 일정 기준으로 필터링 할 수도 있고, 좌표별로 plot 그래프를 그릴 수도 있다.
 
-<img src="main.png">
 
 ### 사용 개요
 1. 먼저 형상을 받고 필요한 부분들을 설치해준다. 본인이 anaconda를 이용중이라면 매우 쉽게 설치할 수 있다. 형상을 받고 conda-environments 폴더에 들어간 뒤 conda 환경을 하나 만들어준다.
